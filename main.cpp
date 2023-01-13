@@ -1,6 +1,10 @@
-#include <iostream>
+#include <ncurses.h>
+
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    initscr();
+    printw("Hello world!\n");
+    refresh();
+    endwin();
     return 0;
 }
