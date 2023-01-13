@@ -7,12 +7,16 @@
 
 #include <ncurses.h>
 #include <csignal>
+#include <cstdlib>
 
 
 class Tetris {
+public:
     Tetris() = default;
     ~Tetris() = default;
+
     static void init();
+    static void finish();
 };
 
 

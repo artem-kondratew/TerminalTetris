@@ -19,3 +19,13 @@ void Tetris::init() {
     //signal(SIGWINCH, sighandler);  //  обработка изменения размера окна
     //signal(SIGTSTP, sighandler);  //  обработка Ctrl + Z
 }
+
+
+void Tetris::finish() {
+    curs_set(1);  //  показать курсор
+    clear();  //  очистка экрана
+    refresh();
+    resetty();  //  восстановление настроек терминала
+    endwin();  //  подготовка к выходу
+    exit(0);
+}
