@@ -17,6 +17,8 @@ public:
 
     static void init();
     static void finish();
+
+    [[noreturn]] static void showMenu();
 };
 
 

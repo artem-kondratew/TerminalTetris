@@ -20,7 +20,6 @@ void Tetris::init() {
     //signal(SIGTSTP, sighandler);  //  обработка Ctrl + Z
     printw("TEST\n");
     refresh();
-    getch();
 }
 
 
@@ -38,9 +37,9 @@ void Tetris::finish() {
     exit(0);
 }
 
-/*
-void Tetris::finish() {
 
-
+void Tetris::showMenu() {
+    while(true) {
+        refresh();
+    }
 }
-*/

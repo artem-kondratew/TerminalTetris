@@ -5,7 +5,7 @@
 int main() {
 
     Tetris::init();
-    //std::cout << "I'm here now";
+    Tetris::showMenu();
     Tetris::finish();
 
     return 0;
