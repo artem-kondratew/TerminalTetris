@@ -32,30 +32,30 @@ void Tetris::init() {
     std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0};
     Figure T_figure(T_vector);
     T_figure.paintFigure(30, 30);
-/*
-    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
-    Figure T_figure(T_vector);
-    T_figure.paintFigure(30, 30);
 
-    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
-    Figure T_figure(T_vector);
-    T_figure.paintFigure(30, 30);
+    std::vector<int> Q_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0};
+    Figure Q_figure(Q_vector);
+    Q_figure.paintFigure(40, 30);
 
-    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
-    Figure T_figure(T_vector);
-    T_figure.paintFigure(30, 30);
+    std::vector<int> I_vector = {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0};
+    Figure I_figure(I_vector);
+    I_figure.paintFigure(50, 30);
 
-    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
-    Figure T_figure(T_vector);
-    T_figure.paintFigure(30, 30);
+    std::vector<int> Z_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0};
+    Figure Z_figure(Z_vector);
+    Z_figure.paintFigure(60, 30);
 
-    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
-    Figure T_figure(T_vector);
-    T_figure.paintFigure(30, 30);
+    std::vector<int> S_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0};
+    Figure S_figure(S_vector);
+    S_figure.paintFigure(70, 30);
 
-    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
-    Figure T_figure(T_vector);
-    T_figure.paintFigure(30, 30);*/
+    std::vector<int> J_vector = {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0};
+    Figure J_figure(J_vector);
+    J_figure.paintFigure(80, 30);
+
+    std::vector<int> L_vector = {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0};
+    Figure L_figure(L_vector);
+    L_figure.paintFigure(90, 30);
 
     refresh();
 }
