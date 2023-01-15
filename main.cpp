@@ -5,7 +5,9 @@
 int main() {
 
     Tetris::init();
+
     Tetris::showMenu();
+
     Tetris::finish();
 
     return 0;

@@ -5,20 +5,23 @@
 #ifndef TETRIS_TETRIS_H
 #define TETRIS_TETRIS_H
 
-#include <ncurses.h>
 #include <csignal>
 #include <cstdlib>
+#include <ncurses.h>
+#include "Field.h"
 
 
 class Tetris {
-public:
-    Tetris() = default;
-    ~Tetris() = default;
+private:
+    inline static int score = {};
+private:
+    static void sighandler(int s);
 
+public:
     static void init();
     static void finish();
-
-    [[noreturn]] static void showMenu();
+    static void showMenu();
+    static void setScore(int new_score);
 };
 
 
