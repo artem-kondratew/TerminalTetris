@@ -73,6 +73,15 @@ void Field::paintNextShapeZone() {
 }
 
 
+void Field::paintHighscore() {
+    paintHorLine(8, width * scale + 1, height + 3);
+    paintVerLine(12, width * scale + 18, 10);
+    move(12, width * scale + 6);
+    printw("Highscore:");
+    refresh();
+}
+
+
 void Field::configField() {
     //printw("TEST\n");
     setScale(Field::SCALE);
@@ -81,4 +90,5 @@ void Field::configField() {
     paintScoreZone();
     paintGameZone();
     paintNextShapeZone();
+    paintHighscore();
 }
