@@ -29,11 +29,34 @@ void Tetris::init() {
     Zones::configField();
     setScore(0);
 
+    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0};
+    Figure T_figure(T_vector);
+    T_figure.paintFigure(30, 30);
+/*
     std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
     Figure T_figure(T_vector);
     T_figure.paintFigure(30, 30);
-    move(30, 20);
-    printw("ok");
+
+    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
+    Figure T_figure(T_vector);
+    T_figure.paintFigure(30, 30);
+
+    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
+    Figure T_figure(T_vector);
+    T_figure.paintFigure(30, 30);
+
+    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
+    Figure T_figure(T_vector);
+    T_figure.paintFigure(30, 30);
+
+    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
+    Figure T_figure(T_vector);
+    T_figure.paintFigure(30, 30);
+
+    std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0};
+    Figure T_figure(T_vector);
+    T_figure.paintFigure(30, 30);*/
+
     refresh();
 }
 

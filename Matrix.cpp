@@ -9,8 +9,8 @@ Matrix::Matrix(int new_rows, int new_cols) {
     rows = new_rows;
     cols = new_cols;
     size = rows * cols;
-    data = new double *[rows];
-    values = new double [size];
+    data = new int *[rows];
+    values = new int [size];
     for (int row = 0; row < rows; row++)
         data[row] = values + row * cols;
     for (int cell = 0; cell < size; cell++)
