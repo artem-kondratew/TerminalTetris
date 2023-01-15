@@ -34,8 +34,6 @@ void Zones::paintVerLine(int len, int x0, int y0) {
 
 
 void Zones::paintScoreZone() {
-    move(0, 0);
-    printw("xx\nxx");
     paintHorLine(width * scale, 0, 0);
     paintHorLine(width * scale, 0, 2);
     paintVerLine(1, 0, 0);

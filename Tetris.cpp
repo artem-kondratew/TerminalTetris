@@ -78,4 +78,6 @@ void Tetris::configTetris() {
     setScorePoint();
     Zones::configField();
     setScore(0);
+
+    GameField Field;
 }

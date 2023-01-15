@@ -10,6 +10,7 @@
 
 class Zones {
     friend class Tetris;
+    friend class Field;
 private:
     inline static int GX = 40;
     inline static int GY = 24;
