@@ -18,6 +18,7 @@ protected:
     int* values;
 public:
     Matrix(int new_rows, int new_cols);
+    Matrix(const Matrix& other);
     ~Matrix();
     void setData(int row, int col, int value);
     void setMatrix(std::vector<int> vector);

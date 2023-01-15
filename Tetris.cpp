@@ -32,6 +32,10 @@ void Tetris::init() {
     std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0};
     Figure T_figure(T_vector);
     T_figure.paintFigure(30, 30);
+    T_figure.rotateRight();
+    T_figure.paintFigure(30, 40);
+    T_figure.rotateLeft();T_figure.rotateLeft();
+    T_figure.paintFigure(30, 35);
 
     std::vector<int> Q_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0};
     Figure Q_figure(Q_vector);

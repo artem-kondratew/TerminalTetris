@@ -20,3 +20,19 @@ void Figure::paintFigure(int x0, int y0) {
             (data[row][col/2] == 1) ? printw("[]") : printw("00");
         }
 }
+
+
+void Figure::rotateLeft() {
+    Matrix buffer = *this;
+    for (int row = 0; row < rows; row++)
+        for (int col = 0; col < cols; col++)
+            data[row][col] = buffer.data[col][3-row];
+}
+
+
+void Figure::rotateRight() {
+    Matrix buffer = *this;
+    for (int row = 0; row < rows; row++)
+        for (int col = 0; col < cols; col++)
+            data[row][col] = buffer.data[3-col][row];
+}

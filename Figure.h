@@ -19,6 +19,8 @@ private:
 public:
     explicit Figure(std::vector<int> vector);
     void paintFigure(int x0, int y0);
+    void rotateLeft();
+    void rotateRight();
 };
 
 
