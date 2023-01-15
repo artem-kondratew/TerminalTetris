@@ -17,18 +17,20 @@
 class Tetris {
 private:
     inline static int score = {};
-    inline static int score_x = Zones::X + 9;
-    inline static int score_y = Zones::Y + 1;
+    inline static int score_x = {};
+    inline static int score_y = {};
 
 private:
     static void sighandler(int s);
 public:
-    static void init();
+    static void initWindow();
     static void finish();
     static void showMenu();
+    static void setScorePoint();
     static void setScore(int new_score);
     static int getLines();
     static int getColumns();
+    static void configTetris();
 };
 
 

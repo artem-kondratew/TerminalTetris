@@ -10,7 +10,7 @@ void Tetris::sighandler(int s) {
 }
 
 
-void Tetris::init() {
+void Tetris::initWindow() {
     initscr();
     savetty();  //  save terminal settings
 
@@ -25,9 +25,6 @@ void Tetris::init() {
     //signal(SIGQUIT, Tetris::sighandler);  //  обработка Ctrl + обратный /
     //signal(SIGWINCH, Tetris::sighandler);  //  обработка изменения размера окна
     //signal(SIGTSTP, Tetris::sighandler);  //  обработка Ctrl + Z
-
-    Zones::configField();
-    setScore(0);
 }
 
 
@@ -45,6 +42,12 @@ void Tetris::showMenu() {
     while(true) {
         //refresh();
     }
+}
+
+
+void Tetris::setScorePoint() {
+    score_x = Zones::X + 9;
+    score_y = Zones::Y + 1;
 }
 
 
@@ -67,4 +70,12 @@ int Tetris::getColumns() {
     struct winsize window{};
     ioctl(0, TIOCGWINSZ, &window);
     return window.ws_col;
+}
+
+
+void Tetris::configTetris() {
+    Zones::setXY(getLines(),getColumns());
+    setScorePoint();
+    Zones::configField();
+    setScore(0);
 }

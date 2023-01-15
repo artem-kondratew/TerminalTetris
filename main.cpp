@@ -5,7 +5,8 @@
 
 int main() {
 
-    Tetris::init();
+    Tetris::initWindow();
+    Tetris::configTetris();
 
     Tetris::showMenu();
 

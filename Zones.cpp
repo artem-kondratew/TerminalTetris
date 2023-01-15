@@ -5,10 +5,16 @@
 #include "Zones.h"
 
 
+void Zones::setXY(int lines, int columns) {
+    X = columns / 2 - GX / 2;
+    Y = lines / 2 - GY / 2;
+}
+
+
 void Zones::paintHorLine(int len, int x0, int y0) {
     move(Y + y0, X + x0);
     printw("+");
-    for (int x = 0; x < len * scale; x++) {
+    for (int x = 0; x < len; x++) {
         printw("-");
     }
     printw("+\n");
@@ -30,8 +36,8 @@ void Zones::paintVerLine(int len, int x0, int y0) {
 void Zones::paintScoreZone() {
     move(0, 0);
     printw("xx\nxx");
-    paintHorLine(width, 0, 0);
-    paintHorLine(width, 0, 2);
+    paintHorLine(width * scale, 0, 0);
+    paintHorLine(width * scale, 0, 2);
     paintVerLine(1, 0, 0);
     paintVerLine(1, width * scale + 1, 0);
     move(1 + Y, 2 + X);
@@ -41,7 +47,7 @@ void Zones::paintScoreZone() {
 
 
 void Zones::paintGameZone() {
-    paintHorLine(width, 0, height + 3);
+    paintHorLine(width * scale, 0, height + 3);
     paintVerLine(height, 0, 2);
     paintVerLine(height, width * scale + 1, 2);
     refresh();
@@ -49,19 +55,19 @@ void Zones::paintGameZone() {
 
 
 void Zones::paintNextShapeZone() {
-    paintHorLine(8, width * scale + 1, 0);
-    paintHorLine(8, width * scale + 1, 10);
-    paintVerLine(9, width * scale + 18, 0);
-    move(2, width * scale + 6);
+    paintHorLine(9 * scale - 1, width * scale + 1, 0);
+    paintHorLine(9 * scale - 1, width * scale + 1, 10);
+    paintVerLine(9, width * scale + 19, 0);
+    move(Y + 1, X + width * scale + 5);
     printw("Next shape");
     refresh();
 }
 
 
 void Zones::paintHighscore() {
-    paintHorLine(8, width * scale + 1, height + 3);
-    paintVerLine(12, width * scale + 18, 10);
-    move(12, width * scale + 6);
+    paintHorLine(9 * scale - 1, width * scale + 1, height + 3);
+    paintVerLine(12, width * scale + 19, 10);
+    move(Y + 11, X + width * scale + 5);
     printw("Highscore:");
     refresh();
 }
