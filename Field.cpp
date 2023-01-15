@@ -5,21 +5,6 @@
 #include "Field.h"
 
 
-void Field::setScale(int new_scale) {
-    scale = new_scale;
-}
-
-
-void Field::setWidth(int new_width) {
-    width = new_width;
-}
-
-
-void Field::setHeight(int new_height) {
-    height = new_height;
-}
-
-
 void Field::paintHorLine(int len, int x0, int y0) {
     move(Y + y0, X + x0);
     printw("+");
@@ -84,9 +69,6 @@ void Field::paintHighscore() {
 
 void Field::configField() {
     //printw("TEST\n");
-    setScale(Field::SCALE);
-    setWidth(Field::WIDTH);
-    setHeight(Field::HEIGHT);
     paintScoreZone();
     paintGameZone();
     paintNextShapeZone();
