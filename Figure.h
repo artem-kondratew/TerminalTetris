@@ -21,6 +21,7 @@ public:
     void paintFigure(int x0, int y0);
     void rotateLeft();
     void rotateRight();
+    static void generateFigures();
 };
 
 

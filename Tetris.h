@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <ncurses.h>
 #include <vector>
+#include <sys/ioctl.h>
 #include "Zones.h"
 #include "Figure.h"
 
@@ -26,6 +27,8 @@ public:
     static void finish();
     static void showMenu();
     static void setScore(int new_score);
+    static int getLines();
+    static int getColumns();
 };
 
 

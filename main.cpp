@@ -2,13 +2,15 @@
 #include "Tetris.h"
 
 
+
 int main() {
 
     Tetris::init();
 
     Tetris::showMenu();
 
-    Tetris::finish();
+    //Tetris::finish();
+
 
     return 0;
 }
