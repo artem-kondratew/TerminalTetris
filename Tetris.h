@@ -14,11 +14,11 @@
 class Tetris {
 private:
     inline static int score = {};
-    inline static int score_x = {};
-    inline static int score_y = {};
+    inline static int score_x = Field::X + 9;
+    inline static int score_y = Field::Y + 1;
+
 private:
     static void sighandler(int s);
-
 public:
     static void init();
     static void finish();

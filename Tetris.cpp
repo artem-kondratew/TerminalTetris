@@ -27,6 +27,7 @@ void Tetris::init() {
     //signal(SIGTSTP, Tetris::sighandler);  //  обработка Ctrl + Z
 
     Field::configField();
+    setScore(0);
 }
 
 
@@ -49,4 +50,7 @@ void Tetris::showMenu() {
 
 void Tetris::setScore(int new_score) {
     score = new_score;
+    move(score_y, score_x);
+    printw("%d", score);
+    refresh();
 }

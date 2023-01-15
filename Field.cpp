@@ -35,7 +35,7 @@ void Field::paintScoreZone() {
     paintVerLine(1, 0, 0);
     paintVerLine(1, width * scale + 1, 0);
     move(1 + Y, 2 + X);
-    printw("Score: 0");
+    printw("Score:");
     refresh();
 }
 
