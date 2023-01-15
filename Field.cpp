@@ -42,15 +42,6 @@ void Field::paintVerLine(int len, int x0, int y0) {
 }
 
 
-void Field::paintGameZone() {
-    paintHorLine(width, 0, 2);
-    paintHorLine(width, 0, height + 3);
-    paintVerLine(height, 0, 2);
-    paintVerLine(height, width * scale + 1, 2);
-    refresh();
-}
-
-
 void Field::paintScoreZone() {
     move(0, 0);
     printw("xx\nxx");
@@ -64,16 +55,30 @@ void Field::paintScoreZone() {
 }
 
 
-void Field::paintNextShapeZone() {
+void Field::paintGameZone() {
+    paintHorLine(width, 0, height + 3);
+    paintVerLine(height, 0, 2);
+    paintVerLine(height, width * scale + 1, 2);
+    refresh();
+}
 
+
+void Field::paintNextShapeZone() {
+    paintHorLine(8, width * scale + 1, 0);
+    paintHorLine(8, width * scale + 1, 10);
+    paintVerLine(9, width * scale + 18, 0);
+    move(2, width * scale + 6);
+    printw("Next shape");
+    refresh();
 }
 
 
 void Field::configField() {
     //printw("TEST\n");
-    Field::setScale(Field::SCALE);
-    Field::setWidth(Field::WIDTH);
-    Field::setHeight(Field::HEIGHT);
-    Field::paintScoreZone();
-    Field::paintGameZone();
+    setScale(Field::SCALE);
+    setWidth(Field::WIDTH);
+    setHeight(Field::HEIGHT);
+    paintScoreZone();
+    paintGameZone();
+    paintNextShapeZone();
 }

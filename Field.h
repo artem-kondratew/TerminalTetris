@@ -28,8 +28,8 @@ public:
     static void setScale(int new_scale);
     static void setWidth(int new_width);
     static void setHeight(int new_height);
-    static void paintGameZone();
     static void paintScoreZone();
+    static void paintGameZone();
     static void paintNextShapeZone();
     static void configField();
 };
