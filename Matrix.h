@@ -8,6 +8,7 @@
 
 class Matrix {
     friend class Tetris;
+    friend class Figure;
 protected:
     int rows;
     int cols;
@@ -16,6 +17,7 @@ protected:
     double* values;
 public:
     Matrix(int new_rows, int new_cols);
+    void setData(int row, int col, int value);
 };
 
 

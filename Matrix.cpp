@@ -16,3 +16,8 @@ Matrix::Matrix(int new_rows, int new_cols) {
     for (int cell = 0; cell < size; cell++)
         values[cell] = 0;
 }
+
+
+void Matrix::setData(int row, int col, int value) {
+    data[row][col] = value;
+}

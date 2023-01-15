@@ -5,7 +5,6 @@
 #ifndef TETRIS_FIELD_H
 #define TETRIS_FIELD_H
 
-#include <string>
 #include <ncurses.h>
 
 
