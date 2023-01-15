@@ -13,15 +13,13 @@
 
 class Figure: public Matrix {
     friend class Tetris;
-private:
-    //inline static const std::string left = "[";
-    //inline static const std::string right = "]";
 public:
     explicit Figure(std::vector<int> vector);
+    Figure() = default;
+    Figure(const Figure& other) = default;
     void paintFigure(int x0, int y0);
     void rotateLeft();
     void rotateRight();
-    static void generateFigures();
 };
 
 

@@ -38,13 +38,6 @@ void Tetris::finish() {
 }
 
 
-void Tetris::showMenu() {
-    while(true) {
-        //refresh();
-    }
-}
-
-
 void Tetris::setScorePoint() {
     score_x = Zones::X + 9;
     score_y = Zones::Y + 1;
@@ -78,6 +71,4 @@ void Tetris::configTetris() {
     setScorePoint();
     Zones::configField();
     setScore(0);
-
-    GameField Field;
 }

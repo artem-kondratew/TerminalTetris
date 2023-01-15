@@ -11,7 +11,7 @@
 #include <vector>
 #include <sys/ioctl.h>
 #include "Zones.h"
-#include "GameField.h"
+#include "Engine.h"
 #include "Figure.h"
 
 
@@ -25,7 +25,6 @@ private:
 public:
     static void initWindow();
     static void finish();
-    static void showMenu();
     static void setScorePoint();
     static void setScore(int new_score);
     static int getLines();

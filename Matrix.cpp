@@ -6,6 +6,15 @@
 #include "Matrix.h"
 
 
+Matrix::Matrix() {
+    rows = NAN;
+    cols = NAN;
+    size = NAN;
+    data = nullptr;
+    values = nullptr;
+}
+
+
 Matrix::Matrix(int new_rows, int new_cols) {
     rows = new_rows;
     cols = new_cols;
@@ -22,7 +31,7 @@ Matrix::Matrix(int new_rows, int new_cols) {
 Matrix::Matrix(const Matrix &other) {
     rows = other.rows;
     cols = other.cols;
-    size = rows * cols;
+    size = other.size;
     data = new int* [rows];
     values = new int [size];
     for (int row = 0; row < rows; row++)
@@ -31,12 +40,39 @@ Matrix::Matrix(const Matrix &other) {
 }
 
 
+Matrix::Matrix(Matrix&& other) noexcept {
+    rows = other.rows;
+    cols = other.cols;
+    size = other.size;
+    data = other.data;
+    values = other.values;
+    other.data = nullptr;
+    other.values = nullptr;
+}
+
+
 Matrix::~Matrix() {
     delete[] data;
     delete[] values;
-    rows = 0;
-    cols = 0;
-    size = 0;
+    rows = NAN;
+    cols = NAN;
+    size = NAN;
+}
+
+
+Matrix& Matrix::operator=(const Matrix &other) {
+    if (this != &other) {
+        delete[] data;
+        delete[] values;
+        rows = other.rows;
+        cols = other.cols;
+        size = other.size;
+        data = new int* [rows];
+        values = new int [size];
+        for (int row = 0; row < rows; row++)
+            data[row] = values + row * cols;
+        std::memcpy(values, other.values, sizeof(int) * other.size);
+    }
 }
 
 

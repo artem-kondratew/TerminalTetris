@@ -11,7 +11,7 @@
 
 class Zones {
     friend class Tetris;
-    friend class GameField;
+    friend class Engine;
 private:
     inline static int GX = 40;
     inline static int GY = 24;

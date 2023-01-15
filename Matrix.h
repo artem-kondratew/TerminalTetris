@@ -5,6 +5,7 @@
 #ifndef TETRIS_MATRIX_H
 #define TETRIS_MATRIX_H
 
+#include <cmath>
 #include <vector>
 
 
@@ -17,11 +18,14 @@ protected:
     int** data;
     int* values;
 public:
+    Matrix();
     Matrix(int new_rows, int new_cols);
     Matrix(const Matrix& other);
+    Matrix(Matrix&& other) noexcept ;
     ~Matrix();
     void setData(int row, int col, int value);
     void setMatrix(std::vector<int> vector);
+    Matrix& operator=(const Matrix& other);
 };
 
 
