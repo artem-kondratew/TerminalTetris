@@ -2,10 +2,10 @@
 // Created by user on 1/15/23.
 //
 
-#include "Field.h"
+#include "Zones.h"
 
 
-void Field::paintHorLine(int len, int x0, int y0) {
+void Zones::paintHorLine(int len, int x0, int y0) {
     move(Y + y0, X + x0);
     printw("+");
     for (int x = 0; x < len * scale; x++) {
@@ -15,7 +15,7 @@ void Field::paintHorLine(int len, int x0, int y0) {
 }
 
 
-void Field::paintVerLine(int len, int x0, int y0) {
+void Zones::paintVerLine(int len, int x0, int y0) {
     move(Y + y0, X + x0);
     printw("+");
     for (int y = 0; y < len; y++) {
@@ -27,7 +27,7 @@ void Field::paintVerLine(int len, int x0, int y0) {
 }
 
 
-void Field::paintScoreZone() {
+void Zones::paintScoreZone() {
     move(0, 0);
     printw("xx\nxx");
     paintHorLine(width, 0, 0);
@@ -40,7 +40,7 @@ void Field::paintScoreZone() {
 }
 
 
-void Field::paintGameZone() {
+void Zones::paintGameZone() {
     paintHorLine(width, 0, height + 3);
     paintVerLine(height, 0, 2);
     paintVerLine(height, width * scale + 1, 2);
@@ -48,7 +48,7 @@ void Field::paintGameZone() {
 }
 
 
-void Field::paintNextShapeZone() {
+void Zones::paintNextShapeZone() {
     paintHorLine(8, width * scale + 1, 0);
     paintHorLine(8, width * scale + 1, 10);
     paintVerLine(9, width * scale + 18, 0);
@@ -58,7 +58,7 @@ void Field::paintNextShapeZone() {
 }
 
 
-void Field::paintHighscore() {
+void Zones::paintHighscore() {
     paintHorLine(8, width * scale + 1, height + 3);
     paintVerLine(12, width * scale + 18, 10);
     move(12, width * scale + 6);
@@ -67,8 +67,7 @@ void Field::paintHighscore() {
 }
 
 
-void Field::configField() {
-    //printw("TEST\n");
+void Zones::configField() {
     paintScoreZone();
     paintGameZone();
     paintNextShapeZone();

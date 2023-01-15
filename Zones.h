@@ -2,13 +2,13 @@
 // Created by user on 1/15/23.
 //
 
-#ifndef TETRIS_FIELD_H
-#define TETRIS_FIELD_H
+#ifndef TETRIS_ZONES_H
+#define TETRIS_ZONES_H
 
 #include <ncurses.h>
 
 
-class Field {
+class Zones {
     friend class Tetris;
 private:
     inline static int X = 1;
@@ -28,4 +28,4 @@ public:
 };
 
 
-#endif //TETRIS_FIELD_H
+#endif //TETRIS_ZONES_H

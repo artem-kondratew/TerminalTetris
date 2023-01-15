@@ -8,14 +8,16 @@
 #include <csignal>
 #include <cstdlib>
 #include <ncurses.h>
-#include "Field.h"
+#include <vector>
+#include "Zones.h"
+#include "Figure.h"
 
 
 class Tetris {
 private:
     inline static int score = {};
-    inline static int score_x = Field::X + 9;
-    inline static int score_y = Field::Y + 1;
+    inline static int score_x = Zones::X + 9;
+    inline static int score_y = Zones::Y + 1;
 
 private:
     static void sighandler(int s);

@@ -5,9 +5,10 @@
 #ifndef TETRIS_MATRIX_H
 #define TETRIS_MATRIX_H
 
+#include <vector>
+
 
 class Matrix {
-    friend class Tetris;
     friend class Figure;
 protected:
     int rows;
@@ -16,8 +17,11 @@ protected:
     double** data;
     double* values;
 public:
+    Matrix();
     Matrix(int new_rows, int new_cols);
+    ~Matrix();
     void setData(int row, int col, int value);
+    void setMatrix(std::vector<int> vector);
 };
 
 

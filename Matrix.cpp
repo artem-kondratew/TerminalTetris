@@ -18,6 +18,21 @@ Matrix::Matrix(int new_rows, int new_cols) {
 }
 
 
+Matrix::~Matrix() {
+    delete[] data;
+    delete[] values;
+    rows = 0;
+    cols = 0;
+    size = 0;
+}
+
+
 void Matrix::setData(int row, int col, int value) {
     data[row][col] = value;
+}
+
+
+void Matrix::setMatrix(std::vector<int> vector) {
+    for (int cell = 0; cell < size; cell++)
+        values[cell] = vector[cell];
 }
