@@ -12,3 +12,8 @@ GameField::GameField(): Matrix(20, 10) {
     printw("0");
     refresh();
 }
+
+GameField::~GameField() {
+    X = NAN;
+    Y = NAN;
+}

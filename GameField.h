@@ -5,6 +5,7 @@
 #ifndef TETRIS_GAMEFIELD_H
 #define TETRIS_GAMEFIELD_H
 
+#include "cmath"
 #include "Matrix.h"
 #include "Zones.h"
 
@@ -15,8 +16,7 @@ private:
     int Y;
 public:
     GameField();
-
-    static void configField();
+    ~GameField();
 };
 
 
