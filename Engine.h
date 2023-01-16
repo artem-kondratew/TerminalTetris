@@ -5,13 +5,14 @@
 #ifndef TETRIS_ENGINE_H
 #define TETRIS_ENGINE_H
 
+#include <chrono>
 #include <cmath>
-#include <ctime>
+#include <iostream>
 #include <random>
-#include <unistd.h>
 #include "Figure.h"
 #include "Matrix.h"
 #include "Zones.h"
+#include "Tetris.h"
 
 
 class Engine: public Matrix {

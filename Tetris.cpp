@@ -20,6 +20,7 @@ void Tetris::initWindow() {
     timeout(0); //  неблокируюшее чтение
     //leaveok(stdscr, TRUE);  //  сдвиг курсора - нормально
     curs_set(0);  //  спрятать курсор
+    keypad(stdscr, TRUE);
 
     signal(SIGINT, Tetris::sighandler);  //  обработка Ctrl + C
     //signal(SIGQUIT, Tetris::sighandler);  //  обработка Ctrl + обратный /

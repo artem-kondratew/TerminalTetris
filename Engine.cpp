@@ -122,14 +122,28 @@ void Engine::Gaming(Engine Field) {
     int y_add = -4;
     int create_flag = 1;
     int collision_flag;
+    int cnt = 0;
+    auto start_timer = std::chrono::system_clock::now();
 
     while (true) {
+
         if (create_flag == 1) {
             int random_number = generateRandomNumber();
             figure = chooseNext(random_number);
             create_flag = 0;
             figure.deltaX = 6;
             figure.deltaY = y_add;
+        }
+
+        if (getch() == KEY_UP) {
+            figure.rotateLeft();
+            refresh();
+
+        }
+
+        if (getch() == KEY_DOWN) {
+            figure.rotateRight();
+            refresh();
         }
 
         figure.X0 = Field.X + figure.deltaX;
@@ -146,17 +160,21 @@ void Engine::Gaming(Engine Field) {
             y_add = -4;
             continue;
         }
+
         figure.erase(figure.X0, figure.Y0 - 1, 3 + y_add);
         figure.paint(figure.X0, figure.Y0, 4 + y_add);
-        refresh();
 
         if (y_add == 16) {
             Field.writeBits(figure, y_add);
             create_flag = 1;
             y_add = -4;
         }
-        y_add++;
-        figure.deltaY++;
-        sleep(1);
+
+        auto end_timer = std::chrono::system_clock::now();
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(end_timer - start_timer).count() > 1000) {
+            y_add++;
+            figure.deltaY++;
+            start_timer = std::chrono::system_clock::now();
+        }
     }
 }
