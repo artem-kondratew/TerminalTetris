@@ -25,7 +25,7 @@ void Figure::paintFigure(int x0, int y0, int rows_number) {
 
 
 void Figure::rotateLeft() {
-    Matrix buffer = *this;
+    Figure buffer = *this;
     for (int row = 0; row < rows; row++)
         for (int col = 0; col < cols; col++)
             data[row][col] = buffer.data[col][3-row];
@@ -33,7 +33,7 @@ void Figure::rotateLeft() {
 
 
 void Figure::rotateRight() {
-    Matrix buffer = *this;
+    Figure buffer = *this;
     for (int row = 0; row < rows; row++)
         for (int col = 0; col < cols; col++)
             data[row][col] = buffer.data[3-col][row];

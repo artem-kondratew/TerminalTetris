@@ -86,32 +86,77 @@ Figure Engine::chooseNext(int random_number) {
         default:
             break;
     }
+    return {};
+}
+
+
+void Engine::writeBits() {
+
+}
+
+
+int Engine::compareBits(const Figure& figure, int y_add) {
+    int shift = 0;
+    if (y_add < 0) {
+        shift = -y_add;
+    }
+    for (int row = y_add + shift; row < y_add + 4; row++) {
+        for (int col = figure.deltaX; col < figure.deltaX + 8; col += 2) {
+            if (data[row][col] + figure.data[row-y_add][(col-figure.deltaX)/2] == 2) {
+                return 1;
+            }
+            move(row + Y, col + X);
+            printw("s");
+            refresh();
+        }
+        sleep(1);
+    }
+    return 0;
 }
 
 
 void Engine::Gaming(Engine Field) {
+    Figure figure;
     int y_add = -4;
     int create_flag = 1;
-    Figure figure;
+    int old_X0, old_Y0;
+    int collision_flag;
 
     while (true) {
         if (create_flag == 1) {
             int random_number = generateRandomNumber();
             figure = chooseNext(random_number);
             create_flag = 0;
+            figure.deltaX = 6;
+            figure.deltaY = y_add;
         }
 
+        old_X0 = figure.X0;
+        old_Y0 = figure.Y0;
+        figure.X0 = Field.X + figure.deltaX;
+        figure.Y0 = Field.Y + y_add;
+
+        collision_flag = Field.compareBits(figure, y_add);
+
+        if (collision_flag == 1) {
+            figure.X0 = old_X0;
+            figure.Y0 = old_Y0;
+            Field.writeBits();
+            create_flag = 1;
+            y_add = -4;
+            continue;
+        }
         if (y_add > 0) {
-            Engine::FieldCleaner(Field.X + 6, Field.Y + y_add - 1);
+            Engine::FieldCleaner(figure.X0, figure.Y0 - 1);
         }
-        figure.paintFigure(Field.X + 6, Field.Y + y_add, 4 + y_add);
+        figure.paintFigure(figure.X0, figure.Y0, 4 + y_add);
         refresh();
-        sleep(1);
-        y_add++;
 
-        if (y_add > 16) {
+        if (y_add == 16) {
             create_flag = 1;
             y_add = -4;
         }
+        y_add++;
+        sleep(1);
     }
 }

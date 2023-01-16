@@ -13,6 +13,11 @@
 
 class Figure: public Matrix {
     friend class Tetris;
+    friend class Engine;
+    int X0{};
+    int Y0{};
+    int deltaX{};
+    int deltaY{};
 public:
     explicit Figure(std::vector<int> vector);
     Figure() = default;

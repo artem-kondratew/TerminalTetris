@@ -22,6 +22,8 @@ private:
     static Figure chooseNext(int randomNumber);
     static int generateRandomNumber();
     static void FieldCleaner(int x, int y);
+    void writeBits();
+    int compareBits(const Figure& figure, int y_add);
 public:
     Engine();
     ~Engine();
