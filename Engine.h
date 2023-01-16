@@ -21,8 +21,7 @@ private:
 private:
     static Figure chooseNext(int randomNumber);
     static int generateRandomNumber();
-    static void FieldCleaner(int x, int y);
-    void writeBits(const Figure& figure, int y_add, int colis);
+    void writeBits(const Figure& figure, int y_add);
     int compareBits(const Figure& figure, int y_add);
 public:
     Engine();

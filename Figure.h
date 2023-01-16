@@ -22,7 +22,8 @@ public:
     explicit Figure(std::vector<int> vector);
     Figure() = default;
     Figure(const Figure& other) = default;
-    void paintFigure(int x0, int y0, int rows_number);
+    void paint(int x0, int y0, int rows_number);
+    void erase(int x0, int y0, int rows_number);
     void rotateLeft();
     void rotateRight();
 };

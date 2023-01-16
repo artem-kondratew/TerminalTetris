@@ -39,12 +39,6 @@ Engine::~Engine() {
 }
 
 
-void Engine::FieldCleaner(int x, int y) {
-    move(y, x);
-    printw("        ");
-}
-
-
 std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0};
 Figure T_figure(T_vector);
 
@@ -90,7 +84,7 @@ Figure Engine::chooseNext(int random_number) {
 }
 
 
-void Engine::writeBits(const Figure& figure, int y_add, int colis) {
+void Engine::writeBits(const Figure& figure, int y_add) {
     int shift = 0;
     if (y_add < 0) {
         shift = -y_add;
@@ -99,16 +93,11 @@ void Engine::writeBits(const Figure& figure, int y_add, int colis) {
         for (int col = figure.deltaX; col < figure.deltaX + 8; col += 2)
             if (figure.data[row-y_add][(col-figure.deltaX)/2] == 1) {
                 data[row][col] = 1;
-                move(row + Y, col + X);
-                printw("%d", colis);
-                refresh();
             }
-    sleep(2);
 }
 
 
 int Engine::compareBits(const Figure& figure, int y_add) {
-    int flag = 0;
     int shift = 0;
     if (y_add < 0) {
         shift = -y_add;
@@ -151,23 +140,23 @@ void Engine::Gaming(Engine Field) {
         if (collision_flag == 1) {
             figure.Y0--;
             y_add--;
-            Field.writeBits(figure, y_add, collision_flag);
+            figure.deltaY--;
+            Field.writeBits(figure, y_add);
             create_flag = 1;
             y_add = -4;
             continue;
         }
-        if (y_add > 0) {
-            Engine::FieldCleaner(figure.X0, figure.Y0 - 1);
-        }
-        figure.paintFigure(figure.X0, figure.Y0, 4 + y_add);
+        figure.erase(figure.X0, figure.Y0 - 1, 3 + y_add);
+        figure.paint(figure.X0, figure.Y0, 4 + y_add);
         refresh();
 
         if (y_add == 16) {
-            Field.writeBits(figure, y_add, 9);
+            Field.writeBits(figure, y_add);
             create_flag = 1;
             y_add = -4;
         }
         y_add++;
+        figure.deltaY++;
         sleep(1);
     }
 }
