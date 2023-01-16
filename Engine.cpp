@@ -20,6 +20,11 @@ T my_rand(T min, T max) {
 }
 
 
+int Engine::generateRandomNumber() {
+    return my_rand(0, 6);
+}
+
+
 Engine::Engine(): Matrix(20, 10) {
     X = Zones::X + 1;
     Y = Zones::Y + 3;
@@ -31,11 +36,6 @@ Engine::Engine(): Matrix(20, 10) {
 Engine::~Engine() {
     X = NAN;
     Y = NAN;
-}
-
-
-int Engine::generateRandomNumber() {
-    return my_rand(0, 6);
 }
 
 
@@ -90,12 +90,25 @@ Figure Engine::chooseNext(int random_number) {
 }
 
 
-void Engine::writeBits() {
-
+void Engine::writeBits(const Figure& figure, int y_add, int colis) {
+    int shift = 0;
+    if (y_add < 0) {
+        shift = -y_add;
+    }
+    for (int row = y_add + shift; row < y_add + 4; row++)
+        for (int col = figure.deltaX; col < figure.deltaX + 8; col += 2)
+            if (figure.data[row-y_add][(col-figure.deltaX)/2] == 1) {
+                data[row][col] = 1;
+                move(row + Y, col + X);
+                printw("%d", colis);
+                refresh();
+            }
+    sleep(2);
 }
 
 
 int Engine::compareBits(const Figure& figure, int y_add) {
+    int flag = 0;
     int shift = 0;
     if (y_add < 0) {
         shift = -y_add;
@@ -106,10 +119,10 @@ int Engine::compareBits(const Figure& figure, int y_add) {
                 return 1;
             }
             move(row + Y, col + X);
-            printw("s");
+            //printw("s");
             refresh();
         }
-        sleep(1);
+        //sleep(1);
     }
     return 0;
 }
@@ -119,7 +132,6 @@ void Engine::Gaming(Engine Field) {
     Figure figure;
     int y_add = -4;
     int create_flag = 1;
-    int old_X0, old_Y0;
     int collision_flag;
 
     while (true) {
@@ -131,17 +143,15 @@ void Engine::Gaming(Engine Field) {
             figure.deltaY = y_add;
         }
 
-        old_X0 = figure.X0;
-        old_Y0 = figure.Y0;
         figure.X0 = Field.X + figure.deltaX;
         figure.Y0 = Field.Y + y_add;
 
         collision_flag = Field.compareBits(figure, y_add);
 
         if (collision_flag == 1) {
-            figure.X0 = old_X0;
-            figure.Y0 = old_Y0;
-            Field.writeBits();
+            figure.Y0--;
+            y_add--;
+            Field.writeBits(figure, y_add, collision_flag);
             create_flag = 1;
             y_add = -4;
             continue;
@@ -153,6 +163,7 @@ void Engine::Gaming(Engine Field) {
         refresh();
 
         if (y_add == 16) {
+            Field.writeBits(figure, y_add, 9);
             create_flag = 1;
             y_add = -4;
         }

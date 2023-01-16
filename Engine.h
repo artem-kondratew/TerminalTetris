@@ -22,7 +22,7 @@ private:
     static Figure chooseNext(int randomNumber);
     static int generateRandomNumber();
     static void FieldCleaner(int x, int y);
-    void writeBits();
+    void writeBits(const Figure& figure, int y_add, int colis);
     int compareBits(const Figure& figure, int y_add);
 public:
     Engine();

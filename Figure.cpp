@@ -15,7 +15,7 @@ void Figure::paintFigure(int x0, int y0, int rows_number) {
         for (int col = 0; col < cols * 2; col += 2) {
             if (row > 3 - rows_number) {
                 move(y0 + row, x0 + col);
-                (data[row][col/2] == 1) ? printw("[]") : printw("00");
+                (data[row][col/2] == 1) ? printw("[]") : printw("  ");
             }
             else {
                 break;
