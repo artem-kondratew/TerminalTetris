@@ -28,7 +28,7 @@ Matrix::Matrix(int new_rows, int new_cols) {
 }
 
 
-Matrix::Matrix(const Matrix &other) {
+Matrix::Matrix(const Matrix& other) {
     rows = other.rows;
     cols = other.cols;
     size = other.size;
@@ -60,7 +60,7 @@ Matrix::~Matrix() {
 }
 
 
-Matrix& Matrix::operator=(const Matrix &other) {
+Matrix& Matrix::operator=(const Matrix& other) {
     if (this != &other) {
         delete[] data;
         delete[] values;
@@ -73,6 +73,23 @@ Matrix& Matrix::operator=(const Matrix &other) {
             data[row] = values + row * cols;
         std::memcpy(values, other.values, sizeof(int) * other.size);
     }
+    return *this;
+}
+
+
+Matrix& Matrix::operator=(Matrix&& other) noexcept {
+    if (this != &other) {
+        delete[] data;
+        delete[] values;
+        rows = other.rows;
+        cols = other.cols;
+        size = other.size;
+        data = other.data;
+        values = other.values;
+        other.data = nullptr;
+        other.values = nullptr;
+    }
+    return *this;
 }
 
 

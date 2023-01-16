@@ -26,6 +26,7 @@ public:
     void setData(int row, int col, int value);
     void setMatrix(std::vector<int> vector);
     Matrix& operator=(const Matrix& other);
+    Matrix& operator=(Matrix&& other) noexcept ;
 };
 
 
