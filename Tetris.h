@@ -21,7 +21,7 @@ private:
     inline static int score_x = NAN;
     inline static int score_y = NAN;
 private:
-    static void sighandler(int s);
+    static void signalHandler(int s);
 public:
     static void initWindow();
     static void finish();

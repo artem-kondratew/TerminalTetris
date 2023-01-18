@@ -5,7 +5,7 @@
 #include "Tetris.h"
 
 
-void Tetris::sighandler(int s) {
+void Tetris::signalHandler(int s) {
     finish();
 }
 
@@ -22,10 +22,10 @@ void Tetris::initWindow() {
     curs_set(0);  //  спрятать курсор
     keypad(stdscr, TRUE);
 
-    signal(SIGINT, Tetris::sighandler);  //  обработка Ctrl + C
-    //signal(SIGQUIT, Tetris::sighandler);  //  обработка Ctrl + обратный /
-    //signal(SIGWINCH, Tetris::sighandler);  //  обработка изменения размера окна
-    //signal(SIGTSTP, Tetris::sighandler);  //  обработка Ctrl + Z
+    signal(SIGINT, Tetris::signalHandler);  //  обработка Ctrl + C
+    //signal(SIGQUIT, Tetris::signalHandler);  //  обработка Ctrl + обратный /
+    //signal(SIGWINCH, Tetris::signalHandler);  //  обработка изменения размера окна
+    //signal(SIGTSTP, Tetris::signalHandler);  //  обработка Ctrl + Z
 }
 
 
@@ -54,7 +54,7 @@ void Tetris::setScore(int new_score) {
 
 
 void Tetris::increaseScore() {
-    score++;
+    setScore(score+1);
 }
 
 

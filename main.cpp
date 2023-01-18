@@ -7,9 +7,7 @@ int main() {
 
     Tetris::initWindow();
     Tetris::configTetris();
-    Engine Field;
-
-    Engine::Gaming(Field);
+    Engine::Gaming();
 
     //Tetris::finish();
 

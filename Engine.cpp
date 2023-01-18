@@ -12,6 +12,7 @@ inline std::mt19937& generator() {
     return gen;
 }
 
+
 // A function to generate integers in the range [min, max]
 template<typename T, std::enable_if_t<std::is_integral_v<T>>* = nullptr>
 T my_rand(T min, T max) {
@@ -28,18 +29,11 @@ int Engine::generateRandomNumber() {
 Engine::Engine(): Matrix(22, 10) {
     X = Zones::X + 1;
     Y = Zones::Y + 3;
-    /*move(Y, X);
-    printw("0");
-    refresh();*/
     for (int row = 20; row < rows; row++)
         for (int col = 0; col < cols; col++) {
             data[row][col] = 1;
         }
-}
-
-Engine::~Engine() {
-    X = NAN;
-    Y = NAN;
+    Field_pointer = this;
 }
 
 
@@ -88,7 +82,7 @@ Figure Engine::chooseNext(int random_number) {
 }
 
 
-void Engine::writeBits(const Figure& figure) {
+void Engine::writeBits() {
     int shift = 0;
     if (figure.deltaY < 0) {
         shift = -figure.deltaY;
@@ -101,7 +95,7 @@ void Engine::writeBits(const Figure& figure) {
 }
 
 
-int Engine::compareBits(const Figure& figure) {
+int Engine::compareBits() {
     int shift = 0;
     if (figure.deltaY < 0) {
         shift = -figure.deltaY;
@@ -112,7 +106,6 @@ int Engine::compareBits(const Figure& figure) {
                 return 1;
             }
         }
-        //sleep(1);
     }
     return 0;
 }
@@ -123,58 +116,98 @@ void Engine::refreshField() {
         for (int col = 0; col < cols; col++) {
             move(Y + row, X + col * 2);
             (data[row][col] == 1) ? printw("[]") : printw("  ");
-            refresh();
+
         }
+    refresh();
 }
 
 
-void Engine::Gaming(Engine Field) {
-    Figure figure;
+int Engine::fillChecker() {
+    int fill_level = 0;
+    int buffer;
+    for (int row = rows - 3; row >= 0; row--) {
+        buffer = 0;
+        for (int col = 0; col < cols; col++)
+            if (data[row][col] == 1) {
+                buffer = 1;
+            }
+        if (buffer == 1) {
+            fill_level++;
+        }
+    }
+
+    return (fill_level == 20) ? 1 : 0;
+}
+
+/*
+void Engine::keyHandler(int s) {
+}*/
+
+void Engine::keyHandler(int key) {
+    Engine Field = *Field_pointer;
+
+
+}
+
+
+void Engine::Gaming() {
+    Engine Field;
     int create_flag = 1;
     int collision_flag;
     auto start_timer = std::chrono::system_clock::now();
+    double k = 1.0;
 
     while (true) {
         if (create_flag == 1) {
             int random_number = generateRandomNumber();
-            figure = chooseNext(random_number);
+            Field.figure = chooseNext(random_number);
             create_flag = 0;
-            figure.deltaX = 3;
-            figure.deltaY = -4;
-            //Field.refreshField();
+            Field.figure.deltaX = 3;
+            Field.figure.deltaY = -4;
+            k -= 0.01;
         }
 
-        if (getch() == KEY_UP) {
-            figure.rotateLeft();
+        int key = getch();
+
+        if (key == KEY_UP) {
+            Field.figure.rotateLeft();
             Field.refreshField();
             refresh();
         }
-
-        if (getch() == KEY_DOWN) {
-            figure.rotateRight();
+        if (key == KEY_DOWN) {
+            Field.figure.rotateRight();
+            Field.refreshField();
             refresh();
         }
+        if (key == KEY_LEFT) {
+        }
+        if (key == KEY_LEFT) {
 
-        figure.X0 = Field.X + figure.deltaX * 2;
-        figure.Y0 = Field.Y + figure.deltaY;
+        }
 
-        collision_flag = Field.compareBits(figure);
+        Field.figure.X0 = Field.X + Field.figure.deltaX * 2;
+        Field.figure.Y0 = Field.Y + Field.figure.deltaY;
+
+        collision_flag = Field.compareBits();
 
         if (collision_flag == 1) {
-            figure.Y0--;
-            figure.deltaY--;
-            Field.writeBits(figure);
+            Field.figure.Y0--;
+            Field.figure.deltaY--;
+            Field.writeBits();
             create_flag = 1;
+            //Tetris::increaseScore();
             Field.refreshField();
             continue;
         }
 
-        figure.erase(figure.X0, figure.Y0 - 1, 3 + figure.deltaY);
-        figure.paint(figure.X0, figure.Y0, 4 + figure.deltaY);
+        Field.figure.erase(Field.figure.X0, Field.figure.Y0 - 1, 3 + Field.figure.deltaY);
+        Field.figure.paint(Field.figure.X0, Field.figure.Y0, 4 + Field.figure.deltaY);
+        refresh();
+        //Field.refreshField();
 
         auto end_timer = std::chrono::system_clock::now();
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(end_timer - start_timer).count() > 1000) {
-            figure.deltaY++;
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(end_timer - start_timer).count() > int(1000 * k)) {
+            Field.figure.deltaY++;
             start_timer = std::chrono::system_clock::now();
         }
     }

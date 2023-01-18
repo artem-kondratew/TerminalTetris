@@ -19,16 +19,20 @@ class Engine: public Matrix {
 private:
     int X;
     int Y;
+    Figure figure{};
+    inline static Engine* Field_pointer{};
 private:
     static Figure chooseNext(int randomNumber);
     static int generateRandomNumber();
-    void writeBits(const Figure& figure);
-    int compareBits(const Figure& figure);
+    void writeBits();
+    int compareBits();
     void refreshField();
+    int fillChecker();
+    static void keyHandler(int key);
 public:
     Engine();
-    ~Engine();
-    static void Gaming(Engine Field);
+    ~Engine() = default;
+    static void Gaming();
 };
 
 
