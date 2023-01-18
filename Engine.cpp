@@ -25,12 +25,16 @@ int Engine::generateRandomNumber() {
 }
 
 
-Engine::Engine(): Matrix(20, 10) {
+Engine::Engine(): Matrix(22, 10) {
     X = Zones::X + 1;
     Y = Zones::Y + 3;
-    move(Y, X);
+    /*move(Y, X);
     printw("0");
-    refresh();
+    refresh();*/
+    for (int row = 20; row < rows; row++)
+        for (int col = 0; col < cols; col++) {
+            data[row][col] = 1;
+        }
 }
 
 Engine::~Engine() {
@@ -40,25 +44,25 @@ Engine::~Engine() {
 
 
 std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0};
-Figure T_figure(T_vector);
+Figure T_figure(T_vector, 0, 0);
 
 std::vector<int> Q_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0};
-Figure Q_figure(Q_vector);
+Figure Q_figure(Q_vector, -1, -1);
 
 std::vector<int> I_vector = {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0};
-Figure I_figure(I_vector);
+Figure I_figure(I_vector, 0, 0);
 
 std::vector<int> Z_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0};
-Figure Z_figure(Z_vector);
+Figure Z_figure(Z_vector, 0, 0);
 
 std::vector<int> S_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0};
-Figure S_figure(S_vector);
+Figure S_figure(S_vector, 0, 0);
 
 std::vector<int> J_vector = {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0};
-Figure J_figure(J_vector);
+Figure J_figure(J_vector, 0, 0);
 
 std::vector<int> L_vector = {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0};
-Figure L_figure(L_vector);
+Figure L_figure(L_vector, 0, 0);
 
 
 Figure Engine::chooseNext(int random_number) {
@@ -84,32 +88,29 @@ Figure Engine::chooseNext(int random_number) {
 }
 
 
-void Engine::writeBits(const Figure& figure, int y_add) {
+void Engine::writeBits(const Figure& figure) {
     int shift = 0;
-    if (y_add < 0) {
-        shift = -y_add;
+    if (figure.deltaY < 0) {
+        shift = -figure.deltaY;
     }
-    for (int row = y_add + shift; row < y_add + 4; row++)
-        for (int col = figure.deltaX; col < figure.deltaX + 8; col += 2)
-            if (figure.data[row-y_add][(col-figure.deltaX)/2] == 1) {
+    for (int row = figure.deltaY + shift; row < figure.deltaY + 4; row++)
+        for (int col = figure.deltaX; col < figure.deltaX + 4; col++)
+            if (figure.data[row-figure.deltaY][(col-figure.deltaX)] == 1) {
                 data[row][col] = 1;
             }
 }
 
 
-int Engine::compareBits(const Figure& figure, int y_add) {
+int Engine::compareBits(const Figure& figure) {
     int shift = 0;
-    if (y_add < 0) {
-        shift = -y_add;
+    if (figure.deltaY < 0) {
+        shift = -figure.deltaY;
     }
-    for (int row = y_add + shift; row < y_add + 4; row++) {
-        for (int col = figure.deltaX; col < figure.deltaX + 8; col += 2) {
-            if (data[row][col] + figure.data[row-y_add][(col-figure.deltaX)/2] == 2) {
+    for (int row = figure.deltaY + shift; row < figure.deltaY + 4; row++) {
+        for (int col = figure.deltaX; col < figure.deltaX + 4; col++) {
+            if (data[row][col] + figure.data[row-figure.deltaY][col-figure.deltaX] == 2) {
                 return 1;
             }
-            move(row + Y, col + X);
-            //printw("s");
-            refresh();
         }
         //sleep(1);
     }
@@ -118,10 +119,10 @@ int Engine::compareBits(const Figure& figure, int y_add) {
 
 
 void Engine::refreshField() {
-    for (int row = 0; row < rows; row++)
-        for (int col = 0; col < cols * 2; col += 2) {
-            move(Y + row, X + col);
-            printw("  ");
+    for (int row = 0; row < rows - 2; row++)
+        for (int col = 0; col < cols; col++) {
+            move(Y + row, X + col * 2);
+            (data[row][col] == 1) ? printw("[]") : printw("  ");
             refresh();
         }
 }
@@ -129,28 +130,24 @@ void Engine::refreshField() {
 
 void Engine::Gaming(Engine Field) {
     Figure figure;
-    int y_add = -4;
     int create_flag = 1;
     int collision_flag;
-    int cnt = 0;
     auto start_timer = std::chrono::system_clock::now();
 
     while (true) {
-
         if (create_flag == 1) {
             int random_number = generateRandomNumber();
             figure = chooseNext(random_number);
             create_flag = 0;
-            figure.deltaX = 6;
-            figure.deltaY = y_add;
+            figure.deltaX = 3;
+            figure.deltaY = -4;
+            //Field.refreshField();
         }
 
         if (getch() == KEY_UP) {
-
             figure.rotateLeft();
             Field.refreshField();
             refresh();
-
         }
 
         if (getch() == KEY_DOWN) {
@@ -158,33 +155,25 @@ void Engine::Gaming(Engine Field) {
             refresh();
         }
 
-        figure.X0 = Field.X + figure.deltaX;
-        figure.Y0 = Field.Y + y_add;
+        figure.X0 = Field.X + figure.deltaX * 2;
+        figure.Y0 = Field.Y + figure.deltaY;
 
-        collision_flag = Field.compareBits(figure, y_add);
+        collision_flag = Field.compareBits(figure);
 
         if (collision_flag == 1) {
             figure.Y0--;
-            y_add--;
             figure.deltaY--;
-            Field.writeBits(figure, y_add);
+            Field.writeBits(figure);
             create_flag = 1;
-            y_add = -4;
+            Field.refreshField();
             continue;
         }
 
-        figure.erase(figure.X0, figure.Y0 - 1, 3 + y_add);
-        figure.paint(figure.X0, figure.Y0, 4 + y_add);
-
-        if (y_add == 16) {
-            Field.writeBits(figure, y_add);
-            create_flag = 1;
-            y_add = -4;
-        }
+        figure.erase(figure.X0, figure.Y0 - 1, 3 + figure.deltaY);
+        figure.paint(figure.X0, figure.Y0, 4 + figure.deltaY);
 
         auto end_timer = std::chrono::system_clock::now();
         if (std::chrono::duration_cast<std::chrono::milliseconds>(end_timer - start_timer).count() > 1000) {
-            y_add++;
             figure.deltaY++;
             start_timer = std::chrono::system_clock::now();
         }
