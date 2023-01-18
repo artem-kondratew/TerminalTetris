@@ -18,16 +18,17 @@ class Figure: public Matrix {
     int Y0{};
     int deltaX{};
     int deltaY{};
-    int rotate_row{};
-    int rotate_col{};
+    int left_border{};
+    int right_border{};
 public:
-    explicit Figure(std::vector<int> vector, int nr_row, int nr_col);
+    explicit Figure(std::vector<int> vector);
     Figure() = default;
     Figure(const Figure& other) = default;
     void paint(int x0, int y0, int rows_number);
     void erase(int x0, int y0, int rows_number);
     void rotateLeft();
     void rotateRight();
+    void findBorders();
 };
 
 

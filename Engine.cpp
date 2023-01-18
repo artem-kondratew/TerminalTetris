@@ -38,25 +38,25 @@ Engine::Engine(): Matrix(22, 10) {
 
 
 std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0};
-Figure T_figure(T_vector, 0, 0);
+Figure T_figure(T_vector);
 
 std::vector<int> Q_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0};
-Figure Q_figure(Q_vector, -1, -1);
+Figure Q_figure(Q_vector);
 
 std::vector<int> I_vector = {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0};
-Figure I_figure(I_vector, 0, 0);
+Figure I_figure(I_vector);
 
 std::vector<int> Z_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0};
-Figure Z_figure(Z_vector, 0, 0);
+Figure Z_figure(Z_vector);
 
 std::vector<int> S_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0};
-Figure S_figure(S_vector, 0, 0);
+Figure S_figure(S_vector);
 
 std::vector<int> J_vector = {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0};
-Figure J_figure(J_vector, 0, 0);
+Figure J_figure(J_vector);
 
 std::vector<int> L_vector = {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0};
-Figure L_figure(L_vector, 0, 0);
+Figure L_figure(L_vector);
 
 
 Figure Engine::chooseNext(int random_number) {
@@ -87,8 +87,8 @@ void Engine::writeBits() {
     if (figure.deltaY < 0) {
         shift = -figure.deltaY;
     }
-    for (int row = figure.deltaY + shift; row < figure.deltaY + 4; row++)
-        for (int col = figure.deltaX; col < figure.deltaX + 4; col++)
+    for (int row = figure.deltaY + shift; row < figure.deltaY + figure.rows; row++)
+        for (int col = figure.deltaX; col < figure.deltaX + figure.cols; col++)
             if (figure.data[row-figure.deltaY][(col-figure.deltaX)] == 1) {
                 data[row][col] = 1;
             }
@@ -100,8 +100,8 @@ int Engine::compareBits() {
     if (figure.deltaY < 0) {
         shift = -figure.deltaY;
     }
-    for (int row = figure.deltaY + shift; row < figure.deltaY + 4; row++) {
-        for (int col = figure.deltaX; col < figure.deltaX + 4; col++) {
+    for (int row = figure.deltaY + shift; row < figure.deltaY + figure.rows; row++) {
+        for (int col = figure.deltaX; col < figure.deltaX + figure.cols; col++) {
             if (data[row][col] + figure.data[row-figure.deltaY][col-figure.deltaX] == 2) {
                 return 1;
             }
@@ -165,6 +165,9 @@ void Engine::Gaming() {
             Field.figure.deltaX = 3;
             Field.figure.deltaY = -4;
             k -= 0.01;
+            Field.figure.findBorders();
+            move(20, 10);
+            printw("%d %d", Field.figure.left_border, Field.figure.right_border);
         }
 
         int key = getch();
