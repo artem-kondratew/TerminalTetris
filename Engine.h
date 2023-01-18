@@ -24,6 +24,7 @@ private:
     static int generateRandomNumber();
     void writeBits(const Figure& figure, int y_add);
     int compareBits(const Figure& figure, int y_add);
+    void refreshField();
 public:
     Engine();
     ~Engine();

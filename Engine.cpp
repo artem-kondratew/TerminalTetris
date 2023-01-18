@@ -117,6 +117,16 @@ int Engine::compareBits(const Figure& figure, int y_add) {
 }
 
 
+void Engine::refreshField() {
+    for (int row = 0; row < rows; row++)
+        for (int col = 0; col < cols * 2; col += 2) {
+            move(Y + row, X + col);
+            printw("  ");
+            refresh();
+        }
+}
+
+
 void Engine::Gaming(Engine Field) {
     Figure figure;
     int y_add = -4;
@@ -136,7 +146,9 @@ void Engine::Gaming(Engine Field) {
         }
 
         if (getch() == KEY_UP) {
+
             figure.rotateLeft();
+            Field.refreshField();
             refresh();
 
         }
