@@ -53,6 +53,11 @@ void Tetris::setScore(int new_score) {
 }
 
 
+void Tetris::increaseScore() {
+    score++;
+}
+
+
 int Tetris::getLines() {
     struct winsize window{};
     ioctl(0, TIOCGWINSZ, &window);

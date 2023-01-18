@@ -27,6 +27,7 @@ public:
     static void finish();
     static void setScorePoint();
     static void setScore(int new_score);
+    static void increaseScore();
     static int getLines();
     static int getColumns();
     static void configTetris();
