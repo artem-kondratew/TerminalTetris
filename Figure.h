@@ -20,8 +20,9 @@ class Figure: public Matrix {
     int deltaY{};
     int left_border{};
     int right_border{};
+    int nonrotation{};
 public:
-    explicit Figure(std::vector<int> vector);
+    explicit Figure(std::vector<int> vector, int rows, int cols, int nonrotating=0);
     Figure() = default;
     Figure(const Figure& other) = default;
     void paint(int x0, int y0, int rows_number);
@@ -29,6 +30,7 @@ public:
     void rotateLeft();
     void rotateRight();
     void findBorders();
+    void moveFigure(int step);
 };
 
 

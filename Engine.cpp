@@ -37,26 +37,26 @@ Engine::Engine(): Matrix(22, 10) {
 }
 
 
-std::vector<int> T_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0};
-Figure T_figure(T_vector);
+std::vector<int> T_vector = {0, 0, 0, 1, 1, 1 ,0, 1, 0};
+Figure T_figure(T_vector, 3, 3);
 
-std::vector<int> Q_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0};
-Figure Q_figure(Q_vector);
+std::vector<int> Q_vector = {1, 1, 1, 1};
+Figure Q_figure(Q_vector, 2, 2, 1);
 
-std::vector<int> I_vector = {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0};
-Figure I_figure(I_vector);
+std::vector<int> I_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0};
+Figure I_figure(I_vector, 4, 4);
 
-std::vector<int> Z_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0};
-Figure Z_figure(Z_vector);
+std::vector<int> Z_vector = {1, 1, 0, 0, 1, 1, 0, 0, 0};
+Figure Z_figure(Z_vector, 3, 3);
 
-std::vector<int> S_vector = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0};
-Figure S_figure(S_vector);
+std::vector<int> S_vector = {0, 1, 1, 1, 1, 0, 0, 0, 0};
+Figure S_figure(S_vector, 3, 3);
 
-std::vector<int> J_vector = {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0};
-Figure J_figure(J_vector);
+std::vector<int> J_vector = {1, 0, 0, 1, 1, 1, 0, 0, 0};
+Figure J_figure(J_vector, 3, 3);
 
-std::vector<int> L_vector = {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0};
-Figure L_figure(L_vector);
+std::vector<int> L_vector = {0, 0, 1, 1, 1, 1, 0, 0, 0};
+Figure L_figure(L_vector, 3, 3);
 
 
 Figure Engine::chooseNext(int random_number) {
@@ -162,30 +162,32 @@ void Engine::Gaming() {
             int random_number = generateRandomNumber();
             Field.figure = chooseNext(random_number);
             create_flag = 0;
-            Field.figure.deltaX = 3;
-            Field.figure.deltaY = -4;
+            Field.figure.deltaX = (Zones::width - Field.figure.cols) / 2;
+            Field.figure.deltaY = -Field.figure.getRows();
             k -= 0.01;
-            Field.figure.findBorders();
-            move(20, 10);
-            printw("%d %d", Field.figure.left_border, Field.figure.right_border);
         }
+
+        Field.figure.findBorders();
+        move(20, 10);
+        printw("%d %d", Field.figure.left_border, Field.figure.right_border);
 
         int key = getch();
 
         if (key == KEY_UP) {
             Field.figure.rotateLeft();
             Field.refreshField();
-            refresh();
         }
         if (key == KEY_DOWN) {
             Field.figure.rotateRight();
             Field.refreshField();
-            refresh();
         }
         if (key == KEY_LEFT) {
+            Field.figure.moveFigure(-1);
+            Field.refreshField();
         }
-        if (key == KEY_LEFT) {
-
+        if (key == KEY_RIGHT) {
+            Field.figure.moveFigure(1);
+            Field.refreshField();
         }
 
         Field.figure.X0 = Field.X + Field.figure.deltaX * 2;
@@ -203,10 +205,10 @@ void Engine::Gaming() {
             continue;
         }
 
+        //Field.refreshField();
         Field.figure.erase(Field.figure.X0, Field.figure.Y0 - 1, 3 + Field.figure.deltaY);
         Field.figure.paint(Field.figure.X0, Field.figure.Y0, 4 + Field.figure.deltaY);
-        refresh();
-        //Field.refreshField();
+        //refresh();
 
         auto end_timer = std::chrono::system_clock::now();
         if (std::chrono::duration_cast<std::chrono::milliseconds>(end_timer - start_timer).count() > int(1000 * k)) {

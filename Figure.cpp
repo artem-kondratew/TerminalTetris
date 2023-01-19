@@ -5,7 +5,8 @@
 #include "Figure.h"
 
 
-Figure::Figure(std::vector<int> vector): Matrix(4, 4) {
+Figure::Figure(std::vector<int> vector, int rows, int cols, int nonrotating): Matrix(rows, cols) {
+    nonrotation = nonrotating;
     setMatrix(std::move(vector));
     //rot_row = rot_row;
     //rot_col = rot_col;
@@ -45,24 +46,26 @@ void Figure::erase(int x0, int y0, int rows_number) {
 
 
 void Figure::rotateLeft() {
-    /*if (rot_row == -1) {
+    if (nonrotation) {
         return;
-    }*/
+    }
     Figure buffer = *this;
-    for (int row = 0; row < rows; row++)
-        for (int col = 0; col < cols; col++)
-            data[row][col] = buffer.data[col][3-row];
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+            data[row][col] = buffer.data[col][rows-1-row];
+        }
+    }
 }
 
 
 void Figure::rotateRight() {
-    /*if (rot_row == -1) {
+    if (nonrotation) {
         return;
-    }*/
+    }
     Figure buffer = *this;
     for (int row = 0; row < rows; row++)
         for (int col = 0; col < cols; col++)
-            data[row][col] = buffer.data[3-col][row];
+            data[row][col] = buffer.data[cols-1-col][row];
 }
 
 
@@ -83,5 +86,13 @@ void Figure::findBorders() {
         if (buffer == 0 && left_border != -1) {
             right_border = col - 1;
         }
+    }
+}
+
+
+void Figure::moveFigure(int step) {
+    this->findBorders();
+    if (deltaX + left_border + step >= 0 && deltaX+ right_border + step < 10) {
+        deltaX += step;
     }
 }
