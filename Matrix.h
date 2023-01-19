@@ -27,6 +27,8 @@ public:
     void setMatrix(std::vector<int> vector);
     Matrix& operator=(const Matrix& other);
     Matrix& operator=(Matrix&& other) noexcept ;
+    int getRows() const;
+    int getCols() const;
 };
 
 

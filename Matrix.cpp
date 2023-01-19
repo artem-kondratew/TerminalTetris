@@ -102,3 +102,13 @@ void Matrix::setMatrix(std::vector<int> vector) {
     for (int cell = 0; cell < size; cell++)
         values[cell] = vector[cell];
 }
+
+
+int Matrix::getRows() const {
+    return rows;
+}
+
+
+int Matrix::getCols() const {
+    return cols;
+}
