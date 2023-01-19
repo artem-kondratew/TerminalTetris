@@ -20,7 +20,6 @@ private:
     int X;
     int Y;
     Figure figure{};
-    inline static Engine* Field_pointer{};
 private:
     static Figure chooseNext(int randomNumber);
     static int generateRandomNumber();
@@ -28,7 +27,6 @@ private:
     int compareBits();
     void refreshField();
     int fillChecker();
-    static void keyHandler(int key);
 public:
     Engine();
     ~Engine() = default;

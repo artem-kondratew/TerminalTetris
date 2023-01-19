@@ -8,8 +8,6 @@
 Figure::Figure(std::vector<int> vector, int rows, int cols, int nonrotating): Matrix(rows, cols) {
     nonrotation = nonrotating;
     setMatrix(std::move(vector));
-    //rot_row = rot_row;
-    //rot_col = rot_col;
 }
 
 
@@ -55,6 +53,11 @@ void Figure::rotateLeft() {
             data[row][col] = buffer.data[col][rows-1-row];
         }
     }
+    this->findBorders();
+    if (deltaX + left_border < 0 || deltaX + right_border >= 10) {
+        *this = buffer;
+        return;
+    }
 }
 
 
@@ -66,12 +69,16 @@ void Figure::rotateRight() {
     for (int row = 0; row < rows; row++)
         for (int col = 0; col < cols; col++)
             data[row][col] = buffer.data[cols-1-col][row];
+    this->findBorders();
+    if (deltaX + left_border < 0 || deltaX + right_border >= 10) {
+        *this = buffer;
+        return;
+    }
 }
 
 
-void Figure::findBorders() {
+void Figure::findLeftBorder() {
     left_border = -1;
-    right_border = cols - 1;
     int buffer;
     for (int col = 0; col < cols; col++) {
         buffer = 0;
@@ -80,19 +87,41 @@ void Figure::findBorders() {
                 buffer = 1;
             }
         }
-        if (buffer == 1 && left_border == -1) {
+        if (buffer == 1) {
             left_border = col;
-        }
-        if (buffer == 0 && left_border != -1) {
-            right_border = col - 1;
+            return;
         }
     }
 }
 
 
+void Figure::findRightBorder() {
+    right_border = cols;
+    int buffer;
+    for (int col = cols - 1; col >= 0; col--) {
+        buffer = 0;
+        for (int row = 0; row < rows; row++) {
+            if (data[row][col] == 1) {
+                buffer = 1;
+            }
+        }
+        if (buffer == 1) {
+            right_border = col;
+            return;
+        }
+    }
+}
+
+
+void Figure::findBorders() {
+    this->findLeftBorder();
+    this->findRightBorder();
+}
+
+
 void Figure::moveFigure(int step) {
     this->findBorders();
-    if (deltaX + left_border + step >= 0 && deltaX+ right_border + step < 10) {
+    if (deltaX + left_border + step >= 0 && deltaX + right_border + step < 10) {
         deltaX += step;
     }
 }

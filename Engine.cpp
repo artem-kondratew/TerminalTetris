@@ -33,7 +33,6 @@ Engine::Engine(): Matrix(22, 10) {
         for (int col = 0; col < cols; col++) {
             data[row][col] = 1;
         }
-    Field_pointer = this;
 }
 
 
@@ -135,18 +134,7 @@ int Engine::fillChecker() {
             fill_level++;
         }
     }
-
     return (fill_level == 20) ? 1 : 0;
-}
-
-/*
-void Engine::keyHandler(int s) {
-}*/
-
-void Engine::keyHandler(int key) {
-    Engine Field = *Field_pointer;
-
-
 }
 
 
@@ -170,6 +158,10 @@ void Engine::Gaming() {
         Field.figure.findBorders();
         move(20, 10);
         printw("%d %d", Field.figure.left_border, Field.figure.right_border);
+        move(21, 10);
+        printw("%d %d", Field.figure.deltaX + Field.figure.left_border + -1, Field.figure.deltaX + Field.figure.right_border + 1);
+        move(22, 10);
+        printw("%d", Field.figure.deltaX);
 
         int key = getch();
 

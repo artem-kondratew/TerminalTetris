@@ -29,6 +29,8 @@ public:
     void erase(int x0, int y0, int rows_number);
     void rotateLeft();
     void rotateRight();
+    void findLeftBorder();
+    void findRightBorder();
     void findBorders();
     void moveFigure(int step);
 };
