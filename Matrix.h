@@ -5,7 +5,7 @@
 #ifndef TETRIS_MATRIX_H
 #define TETRIS_MATRIX_H
 
-#include <cmath>
+#include <cstring>
 #include <vector>
 
 

@@ -2,14 +2,13 @@
 // Created by user on 1/15/23.
 //
 
-#include <cstring>
 #include "Matrix.h"
 
 
 Matrix::Matrix() {
-    rows = NAN;
-    cols = NAN;
-    size = NAN;
+    rows = 0;
+    cols = 0;
+    size = 0;
     data = nullptr;
     values = nullptr;
 }
@@ -54,9 +53,9 @@ Matrix::Matrix(Matrix&& other) noexcept {
 Matrix::~Matrix() {
     delete[] data;
     delete[] values;
-    rows = NAN;
-    cols = NAN;
-    size = NAN;
+    rows = 0;
+    cols = 0;
+    size = 0;
 }
 
 

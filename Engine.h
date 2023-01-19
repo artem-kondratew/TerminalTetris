@@ -6,7 +6,6 @@
 #define TETRIS_ENGINE_H
 
 #include <chrono>
-#include <cmath>
 #include <iostream>
 #include <random>
 #include "Figure.h"

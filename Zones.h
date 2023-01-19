@@ -5,7 +5,6 @@
 #ifndef TETRIS_ZONES_H
 #define TETRIS_ZONES_H
 
-#include <cmath>
 #include <ncurses.h>
 
 
@@ -15,8 +14,8 @@ class Zones {
 private:
     inline static int GX = 40;
     inline static int GY = 24;
-    inline static int X = NAN;
-    inline static int Y = NAN;
+    inline static int X{};
+    inline static int Y{};
     inline static int scale = 2;
     inline static int width = 10;
     inline static int height = 20;

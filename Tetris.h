@@ -17,9 +17,9 @@
 
 class Tetris {
 private:
-    inline static int score = NAN;
-    inline static int score_x = NAN;
-    inline static int score_y = NAN;
+    inline static int score{};
+    inline static int score_x{};
+    inline static int score_y{};
 private:
     static void signalHandler(int s);
 public:
