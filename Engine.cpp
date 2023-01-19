@@ -138,6 +138,17 @@ int Engine::fillChecker() {
 }
 
 
+void Engine::generateNewFigure() {
+    //figure.erase(Zones::next_X+2, Zones::next_Y, rows);
+    //refresh();
+    figure = next_figure;
+    int random_number = generateRandomNumber();
+    next_figure = chooseNext(random_number);
+    //next_figure.paint(Zones::next_X+2, Zones::next_Y, rows);
+    //refresh();
+}
+
+
 void Engine::Gaming() {
     Engine Field;
     int create_flag = 1;
@@ -145,14 +156,15 @@ void Engine::Gaming() {
     auto start_timer = std::chrono::system_clock::now();
     double k = 1.0;
 
+    Field.next_figure = chooseNext(generateRandomNumber());
+
     while (true) {
         if (create_flag == 1) {
-            int random_number = generateRandomNumber();
-            Field.figure = chooseNext(random_number);
-            create_flag = 0;
+            Field.generateNewFigure();
             Field.figure.deltaX = (Zones::width - Field.figure.cols) / 2;
             Field.figure.deltaY = -Field.figure.getRows() + Field.figure.cutEmptyBottom();
             k -= 0.01;
+            create_flag = 0;
         }
 
         int key = getch();
@@ -183,15 +195,15 @@ void Engine::Gaming() {
             Field.figure.Y0--;
             Field.figure.deltaY--;
             Field.writeBits();
-            create_flag = 1;
             //Tetris::increaseScore();
             Field.refreshField();
+            create_flag = 1;
             continue;
         }
 
         //Field.refreshField();
-        Field.figure.erase(Field.figure.X0, Field.figure.Y0 - 1, 3 + Field.figure.deltaY);
-        Field.figure.paint(Field.figure.X0, Field.figure.Y0, 4 + Field.figure.deltaY);
+        Field.figure.erase(Field.figure.X0, Field.figure.Y0 - 1, Field.figure.rows - 1 + Field.figure.deltaY);
+        Field.figure.paint(Field.figure.X0, Field.figure.Y0, Field.figure.rows + Field.figure.deltaY);
         //refresh();
 
         auto end_timer = std::chrono::system_clock::now();

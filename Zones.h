@@ -16,6 +16,8 @@ private:
     inline static int GY = 24;
     inline static int X{};
     inline static int Y{};
+    inline static int next_X{};
+    inline static int next_Y{};
     inline static int scale = 2;
     inline static int width = 10;
     inline static int height = 20;

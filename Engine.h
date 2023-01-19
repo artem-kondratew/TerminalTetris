@@ -19,6 +19,7 @@ private:
     int X;
     int Y;
     Figure figure{};
+    Figure next_figure{};
 private:
     static Figure chooseNext(int randomNumber);
     static int generateRandomNumber();
@@ -26,6 +27,7 @@ private:
     int compareBits();
     void refreshField();
     int fillChecker();
+    void generateNewFigure();
 public:
     Engine();
     ~Engine() = default;
