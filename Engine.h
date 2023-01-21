@@ -31,6 +31,7 @@ private:
     void generateNewFigure();
     int findx0();
     int findy0();
+    void dropFigure();
 public:
     Engine();
     ~Engine() = default;

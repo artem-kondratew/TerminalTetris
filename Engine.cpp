@@ -181,6 +181,11 @@ void Engine::generateNewFigure() {
 }
 
 
+void Engine::dropFigure() {
+    figure.deltaY++;
+}
+
+
 void Engine::Gaming() {
     Engine Field;
     int create_flag = 1;
@@ -207,7 +212,7 @@ void Engine::Gaming() {
             Field.refreshField();
         }
         if (key == KEY_DOWN) {
-            Field.figure.rotateRight();
+            Field.dropFigure();
             Field.refreshField();
         }
         if (key == KEY_LEFT) {
