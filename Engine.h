@@ -32,6 +32,8 @@ private:
     int findx0(int is_I_figure);
     int findy0();
     void dropFigure();
+    void findSeries();
+    void shiftField(int series_row);
 public:
     Engine();
     ~Engine() = default;

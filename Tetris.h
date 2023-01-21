@@ -17,7 +17,7 @@
 
 class Tetris {
 private:
-    inline static int score{};
+    inline static uint64_t score{};
     inline static int score_x{};
     inline static int score_y{};
 private:
@@ -26,7 +26,7 @@ public:
     static void initWindow();
     static void finish();
     static void setScorePoint();
-    static void setScore(int new_score);
+    static void setScore(uint64_t new_score);
     static void increaseScore(int delta_score);
     static int getLines();
     static int getColumns();

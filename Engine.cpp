@@ -189,6 +189,41 @@ void Engine::dropFigure() {
 }
 
 
+void Engine::shiftField(int series_row) {
+    for (int row = series_row; row >= 0; row--)
+        for (int col = 0; col < cols; col++) {
+            if (row > 0) {
+                data[row][col] = data[row-1][col];
+            }
+            else {
+                data[row][col] = 0;
+            }
+        }
+    refresh();
+}
+
+
+void Engine::findSeries() {
+    int series;
+    int series_number = 0;
+    int series_score = 0;
+    for (int row = 0; row < rows - 2; row++) {
+        series = 0;
+        for (int col = 0; col < cols; col++) {
+            if (data[row][col] == 1) {
+                series++;
+            }
+        }
+        if (series == 10) {
+            series_number++;
+            series_score += 100 * series_number;
+            shiftField(row);
+        }
+    }
+    Tetris::increaseScore(series_score);
+}
+
+
 void Engine::Gaming() {
     Engine Field;
     int create_flag = 1;
@@ -239,6 +274,7 @@ void Engine::Gaming() {
             Field.writeBits();
             Field.refreshField();
             create_flag = 1;
+            Field.findSeries();
             continue;
         }
 

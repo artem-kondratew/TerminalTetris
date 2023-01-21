@@ -45,10 +45,10 @@ void Tetris::setScorePoint() {
 }
 
 
-void Tetris::setScore(int new_score) {
+void Tetris::setScore(uint64_t new_score) {
     score = new_score;
     move(score_y, score_x);
-    printw("%d", score);
+    printw("%ld", score);
     refresh();
 }
 
