@@ -110,13 +110,36 @@ int Engine::compareBits() {
 }
 
 
+void Engine::moveFigure(int step) {
+    figure.findBorders();
+    if (figure.deltaX + figure.left_border + step >= 0 && figure.deltaX + figure.right_border + step < 10) {
+        figure.deltaX += step;
+    }
+    if (compareBits() == 1) {
+        figure.deltaX -= step;
+    }
+}
+
+
 void Engine::refreshField() {
-    for (int row = 0; row < rows - 2; row++)
+    for (int row = 0; row < rows - 2; row++) {
         for (int col = 0; col < cols; col++) {
             move(Y + row, X + col * 2);
-            (data[row][col] == 1) ? printw("[]") : printw("  ");
-
+            if (data[row][col] == 1) {
+                printw("[]");
+            }
+            else {
+                if (0 <= row - figure.deltaY &&  row - figure.deltaY < figure.rows && 0 <= col - figure.deltaX && col - figure.deltaX < figure.cols) {
+                    if (figure.data[row-figure.deltaY][col-figure.deltaX] == 0) {
+                        printw("  ");
+                    }
+                }
+                else {
+                    printw("  ");
+                }
+            }
         }
+    }
     refresh();
 }
 
@@ -153,7 +176,6 @@ void Engine::generateNewFigure() {
     figure = next_figure;
     int random_number = generateRandomNumber();
     next_figure = chooseNextFigure(random_number);
-    //next_figure = chooseNextFigure(3);
     next_figure.paint(findx0(), findy0(), figure.rows);
     refresh();
 }
@@ -165,9 +187,9 @@ void Engine::Gaming() {
     int collision_flag;
     auto start_timer = std::chrono::system_clock::now();
     double k = 1.0;
+    int paint_number;
 
     Field.next_figure = chooseNextFigure(generateRandomNumber());
-    //Field.next_figure = chooseNextFigure(3);
 
     while (true) {
         if (create_flag == 1) {
@@ -189,11 +211,11 @@ void Engine::Gaming() {
             Field.refreshField();
         }
         if (key == KEY_LEFT) {
-            Field.figure.moveFigure(-1);
+            Field.moveFigure(-1);
             Field.refreshField();
         }
         if (key == KEY_RIGHT) {
-            Field.figure.moveFigure(1);
+            Field.moveFigure(1);
             Field.refreshField();
         }
 
@@ -212,11 +234,9 @@ void Engine::Gaming() {
             continue;
         }
 
-        //Field.refreshField();
-        int rows_number = Field.figure.rows + Field.figure.deltaY;
-        Field.figure.erase(Field.figure.X0, Field.figure.Y0 - 1, rows_number - 1);
-        Field.figure.paint(Field.figure.X0, Field.figure.Y0, rows_number);
-        //refresh();
+        paint_number = Field.figure.rows + Field.figure.deltaY;
+        Field.refreshField();
+        Field.figure.paint(Field.figure.X0, Field.figure.Y0, paint_number);
 
         auto end_timer = std::chrono::system_clock::now();
         if (std::chrono::duration_cast<std::chrono::milliseconds>(end_timer - start_timer).count() > int(1000 * k)) {

@@ -118,14 +118,6 @@ void Figure::findBorders() {
 }
 
 
-void Figure::moveFigure(int step) {
-    this->findBorders();
-    if (deltaX + left_border + step >= 0 && deltaX + right_border + step < 10) {
-        deltaX += step;
-    }
-}
-
-
 int Figure::cutEmptyBottom() {
     int past = 0;
     int flag;

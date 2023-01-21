@@ -25,6 +25,7 @@ private:
     static int generateRandomNumber();
     void writeBits();
     int compareBits();
+    void moveFigure(int step);
     void refreshField();
     int fillChecker();
     void generateNewFigure();
