@@ -53,8 +53,8 @@ void Tetris::setScore(int new_score) {
 }
 
 
-void Tetris::increaseScore() {
-    setScore(score+1);
+void Tetris::increaseScore(int delta_score) {
+    setScore(score + delta_score);
 }
 
 

@@ -215,6 +215,7 @@ void Engine::Gaming() {
             Field.refreshField();
         }
         if (key == KEY_DOWN) {
+            Tetris::increaseScore(1);
             Field.dropFigure();
             Field.refreshField();
         }
@@ -236,7 +237,6 @@ void Engine::Gaming() {
             Field.figure.Y0--;
             Field.figure.deltaY--;
             Field.writeBits();
-            //Tetris::increaseScore();
             Field.refreshField();
             create_flag = 1;
             continue;
