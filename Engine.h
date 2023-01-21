@@ -21,13 +21,15 @@ private:
     Figure figure{};
     Figure next_figure{};
 private:
-    static Figure chooseNext(int randomNumber);
+    static Figure chooseNextFigure(int randomNumber);
     static int generateRandomNumber();
     void writeBits();
     int compareBits();
     void refreshField();
     int fillChecker();
     void generateNewFigure();
+    int findx0();
+    int findy0();
 public:
     Engine();
     ~Engine() = default;

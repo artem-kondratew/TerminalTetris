@@ -144,3 +144,15 @@ int Figure::cutEmptyBottom() {
     }
     return 0;
 }
+
+
+int Figure::findFullBottom() {
+    for (int row = rows - 1; row >= 0; row--) {
+        for (int col = 0; col < cols; col++) {
+            if (data[row][col] == 1) {
+                return row;
+            }
+        }
+    }
+    return -1;
+}

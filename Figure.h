@@ -34,6 +34,7 @@ public:
     void findBorders();
     void moveFigure(int step);
     int cutEmptyBottom();
+    int findFullBottom();
 };
 
 

@@ -58,7 +58,7 @@ std::vector<int> L_vector = {0, 0, 1, 1, 1, 1, 0, 0, 0};
 Figure L_figure(L_vector, 3, 3);
 
 
-Figure Engine::chooseNext(int random_number) {
+Figure Engine::chooseNextFigure(int random_number) {
     switch (random_number) {
         case 0:
             return T_figure;
@@ -138,14 +138,24 @@ int Engine::fillChecker() {
 }
 
 
+int Engine::findx0() {
+    return Zones::next_X + 3 + (9 - next_figure.cols)/2;
+}
+
+
+int Engine::findy0() {
+    return Zones::next_Y - next_figure.findFullBottom();
+}
+
+
 void Engine::generateNewFigure() {
-    //figure.erase(Zones::next_X+2, Zones::next_Y, rows);
-    //refresh();
+    next_figure.erase(findx0(), findy0(), figure.rows);
     figure = next_figure;
     int random_number = generateRandomNumber();
-    next_figure = chooseNext(random_number);
-    //next_figure.paint(Zones::next_X+2, Zones::next_Y, rows);
-    //refresh();
+    next_figure = chooseNextFigure(random_number);
+    //next_figure = chooseNextFigure(3);
+    next_figure.paint(findx0(), findy0(), figure.rows);
+    refresh();
 }
 
 
@@ -156,7 +166,8 @@ void Engine::Gaming() {
     auto start_timer = std::chrono::system_clock::now();
     double k = 1.0;
 
-    Field.next_figure = chooseNext(generateRandomNumber());
+    Field.next_figure = chooseNextFigure(generateRandomNumber());
+    //Field.next_figure = chooseNextFigure(3);
 
     while (true) {
         if (create_flag == 1) {
@@ -202,8 +213,9 @@ void Engine::Gaming() {
         }
 
         //Field.refreshField();
-        Field.figure.erase(Field.figure.X0, Field.figure.Y0 - 1, Field.figure.rows - 1 + Field.figure.deltaY);
-        Field.figure.paint(Field.figure.X0, Field.figure.Y0, Field.figure.rows + Field.figure.deltaY);
+        int rows_number = Field.figure.rows + Field.figure.deltaY;
+        Field.figure.erase(Field.figure.X0, Field.figure.Y0 - 1, rows_number - 1);
+        Field.figure.paint(Field.figure.X0, Field.figure.Y0, rows_number);
         //refresh();
 
         auto end_timer = std::chrono::system_clock::now();
