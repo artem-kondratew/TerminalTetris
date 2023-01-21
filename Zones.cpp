@@ -57,7 +57,7 @@ void Zones::paintNextShapeZone() {
     paintHorLine(9 * scale - 1, width * scale + 1, 10);
     paintVerLine(9, width * scale + 19, 0);
     next_X = X + width * scale + 1;
-    next_Y = Y + 4;
+    next_Y = Y + 5;
     move(Y + 1, X + width * scale + 5);
     printw("Next shape");
     refresh();
