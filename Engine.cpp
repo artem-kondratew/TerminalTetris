@@ -37,25 +37,25 @@ Engine::Engine(): Matrix(22, 10) {
 
 
 std::vector<int> T_vector = {0, 0, 0, 1, 1, 1 ,0, 1, 0};
-Figure T_figure(T_vector, 3, 3);
+Figure T_figure(T_vector, 3, 3, 0);
 
 std::vector<int> Q_vector = {1, 1, 1, 1};
-Figure Q_figure(Q_vector, 2, 2, 1);
+Figure Q_figure(Q_vector, 2, 2, 1, 1);
 
 std::vector<int> I_vector = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0};
-Figure I_figure(I_vector, 4, 4);
+Figure I_figure(I_vector, 4, 4, 2);
 
 std::vector<int> Z_vector = {1, 1, 0, 0, 1, 1, 0, 0, 0};
-Figure Z_figure(Z_vector, 3, 3);
+Figure Z_figure(Z_vector, 3, 3, 3);
 
 std::vector<int> S_vector = {0, 1, 1, 1, 1, 0, 0, 0, 0};
-Figure S_figure(S_vector, 3, 3);
+Figure S_figure(S_vector, 3, 3, 4);
 
 std::vector<int> J_vector = {1, 0, 0, 1, 1, 1, 0, 0, 0};
-Figure J_figure(J_vector, 3, 3);
+Figure J_figure(J_vector, 3, 3, 5);
 
 std::vector<int> L_vector = {0, 0, 1, 1, 1, 1, 0, 0, 0};
-Figure L_figure(L_vector, 3, 3);
+Figure L_figure(L_vector, 3, 3, 6);
 
 
 Figure Engine::chooseNextFigure(int random_number) {
@@ -161,8 +161,11 @@ int Engine::fillChecker() {
 }
 
 
-int Engine::findx0() {
-    return Zones::next_X + 3 + (9 - next_figure.cols)/2;
+int Engine::findx0(int random_number) {
+    if (random_number == 2) {
+        return Zones::next_X + 3 + (9 - next_figure.cols)/2;
+    }
+    return Zones::next_X + 3 + (10 - next_figure.cols)/2;
 }
 
 
@@ -172,11 +175,11 @@ int Engine::findy0() {
 
 
 void Engine::generateNewFigure() {
-    next_figure.dangerErase(findx0(), findy0());
+    next_figure.dangerErase(findx0(next_figure.type_number), findy0());
     figure = next_figure;
     int random_number = generateRandomNumber();
     next_figure = chooseNextFigure(random_number);
-    next_figure.paint(findx0(), findy0(), figure.rows);
+    next_figure.paint(findx0(next_figure.type_number), findy0(), figure.rows);
     refresh();
 }
 

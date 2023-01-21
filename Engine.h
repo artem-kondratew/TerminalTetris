@@ -29,7 +29,7 @@ private:
     void refreshField();
     int fillChecker();
     void generateNewFigure();
-    int findx0();
+    int findx0(int is_I_figure);
     int findy0();
     void dropFigure();
 public:

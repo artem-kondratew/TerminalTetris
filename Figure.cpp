@@ -5,8 +5,9 @@
 #include "Figure.h"
 
 
-Figure::Figure(std::vector<int> vector, int rows, int cols, int nonrotating): Matrix(rows, cols) {
+Figure::Figure(std::vector<int> vector, int rows, int cols, int random_number, int nonrotating): Matrix(rows, cols) {
     non_rotation = nonrotating;
+    type_number = random_number;
     setMatrix(std::move(vector));
 }
 
