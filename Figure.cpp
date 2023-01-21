@@ -6,7 +6,7 @@
 
 
 Figure::Figure(std::vector<int> vector, int rows, int cols, int nonrotating): Matrix(rows, cols) {
-    nonrotation = nonrotating;
+    non_rotation = nonrotating;
     setMatrix(std::move(vector));
 }
 
@@ -26,7 +26,6 @@ void Figure::paint(int x0, int y0, int rows_number) {
         }
 }
 
-
 void Figure::erase(int x0, int y0, int rows_number) {
     for (int row = rows - 1; row >= 0; row--)
         for (int col = 0; col < cols; col++) {
@@ -44,7 +43,7 @@ void Figure::erase(int x0, int y0, int rows_number) {
 
 
 void Figure::rotateLeft() {
-    if (nonrotation) {
+    if (non_rotation) {
         return;
     }
     Figure buffer = *this;
@@ -62,7 +61,7 @@ void Figure::rotateLeft() {
 
 
 void Figure::rotateRight() {
-    if (nonrotation) {
+    if (non_rotation) {
         return;
     }
     Figure flag = *this;

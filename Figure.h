@@ -20,7 +20,7 @@ class Figure: public Matrix {
     int deltaY{};
     int left_border{};
     int right_border{};
-    int nonrotation{};
+    int non_rotation{};
 public:
     explicit Figure(std::vector<int> vector, int rows, int cols, int nonrotating=0);
     Figure() = default;
