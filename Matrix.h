@@ -23,13 +23,11 @@ public:
     Matrix(const Matrix& other);
     Matrix(Matrix&& other) noexcept ;
     ~Matrix();
-    void setData(int row, int col, int value);
     void setMatrix(std::vector<int> vector);
     Matrix& operator=(const Matrix& other);
     Matrix& operator=(Matrix&& other) noexcept ;
     [[nodiscard]] int getRows() const;
     [[nodiscard]] int getCols() const;
-    void resize(int new_rows, int new_cols);
 };
 
 
