@@ -26,7 +26,7 @@ void Figure::paint(int x0, int y0, int rows_number) {
         }
 }
 
-void Figure::erase(int x0, int y0, int rows_number) {
+void Figure::safeErase(int x0, int y0, int rows_number) {
     for (int row = rows - 1; row >= 0; row--)
         for (int col = 0; col < cols; col++) {
             if (row > rows - 1 - rows_number) {
@@ -39,6 +39,16 @@ void Figure::erase(int x0, int y0, int rows_number) {
                 break;
             }
         }
+}
+
+
+void Figure::dangerErase(int x0, int y0) {
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+            move(y0 + row, x0 + col * 2);
+            printw("  ");
+        }
+    }
 }
 
 

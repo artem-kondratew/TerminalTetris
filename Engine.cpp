@@ -172,7 +172,7 @@ int Engine::findy0() {
 
 
 void Engine::generateNewFigure() {
-    next_figure.erase(findx0(), findy0(), figure.rows);
+    next_figure.dangerErase(findx0(), findy0());
     figure = next_figure;
     int random_number = generateRandomNumber();
     next_figure = chooseNextFigure(random_number);

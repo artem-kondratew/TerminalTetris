@@ -26,7 +26,8 @@ public:
     Figure() = default;
     Figure(const Figure& other) = default;
     void paint(int x0, int y0, int rows_number);
-    void erase(int x0, int y0, int rows_number);
+    void safeErase(int x0, int y0, int rows_number);
+    void dangerErase(int x0, int y0);
     void rotateLeft();
     void rotateRight();
     void findLeftBorder();
