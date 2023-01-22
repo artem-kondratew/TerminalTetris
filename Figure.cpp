@@ -27,6 +27,7 @@ void Figure::paint(int x0, int y0, int rows_number) {
         }
 }
 
+
 void Figure::safeErase(int x0, int y0, int rows_number) {
     for (int row = rows - 1; row >= 0; row--)
         for (int col = 0; col < cols; col++) {
