@@ -21,7 +21,7 @@ class Figure: public Matrix {
     int left_border{};
     int right_border{};
     int non_rotation{};
-    int type_number;
+    int type_number{};
 public:
     explicit Figure(std::vector<int> vector, int rows, int cols, int random_number, int nonrotating=0);
     Figure() = default;
