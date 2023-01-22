@@ -101,8 +101,3 @@ void Matrix::setMatrix(std::vector<int> vector) {
 int Matrix::getRows() const {
     return rows;
 }
-
-
-int Matrix::getCols() const {
-    return cols;
-}

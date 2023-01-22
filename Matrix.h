@@ -21,13 +21,12 @@ public:
     Matrix();
     Matrix(int new_rows, int new_cols);
     Matrix(const Matrix& other);
-    Matrix(Matrix&& other) noexcept ;
+    Matrix(Matrix&& other) noexcept;
     ~Matrix();
     void setMatrix(std::vector<int> vector);
     Matrix& operator=(const Matrix& other);
     Matrix& operator=(Matrix&& other) noexcept ;
     [[nodiscard]] int getRows() const;
-    [[nodiscard]] int getCols() const;
 };
 
 
