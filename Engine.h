@@ -13,6 +13,9 @@
 #include "Zones.h"
 #include "Tetris.h"
 
+#define KEY_RETURN 13
+#define KEY_ESC 27
+
 
 class Engine: public Matrix {
 private:
@@ -21,8 +24,8 @@ private:
     Figure figure{};
     Figure next_figure{};
 private:
-    static Figure chooseNextFigure(int randomNumber);
     static int generateRandomNumber();
+    static Figure chooseNextFigure(int randomNumber);
     void writeBits();
     int compareBits();
     void moveFigure(int step);

@@ -81,6 +81,26 @@ void Zones::configField() {
 }
 
 
+void Zones::paintPauseZone() {
+    int w = 11;
+    int h = 3;
+    int x0 = (GX - w) / 2;
+    int y0 = (GY - h) / 2 - 4;
+    paintHorLine(w + 2, x0, y0);
+    paintHorLine(w + 2, x0, y0 + h + 3);
+    paintVerLine(h + 2, x0, y0);
+    paintVerLine(h + 2, x0 + w + 3, y0);
+
+
+
+    move(Y + y0 + 2, X + x0 + 3);
+    printw("GAME OVER");
+    move(Y + y0 + 4, X + x0 + 2);
+    printw("Press Enter");
+    refresh();
+}
+
+
 void Zones::paintGameOverZone() {
     int w = 11;
     int h = 3;

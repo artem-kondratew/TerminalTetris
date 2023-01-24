@@ -32,6 +32,7 @@ public:
     static void paintNextShapeZone();
     static void paintHighscore();
     static void configField();
+    static void paintPauseZone();
     static void paintGameOverZone();
 };
 

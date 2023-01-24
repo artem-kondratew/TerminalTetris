@@ -16,6 +16,8 @@
 #include "Engine.h"
 #include "Figure.h"
 
+#define KEY_RETURN 13
+
 
 class Tetris {
 private:
@@ -25,7 +27,7 @@ private:
     inline static int score_quantity = 10;
     inline static uint64_t highscore[10];
 private:
-    static void signalHandler(int s);
+    static void signalHandler(int signal);
 public:
     static void initWindow();
     static void finish();
@@ -33,10 +35,11 @@ public:
     static void setScore(uint64_t new_score);
     static void increaseScore(int delta_score);
     static int getLines();
+    static void readHighscore();
     static int getColumns();
     static void configTetris();
+    static void pause();
     static void writeHighscore();
-    static void readHighscore();
     static void gameOver();
 };
 

@@ -246,6 +246,9 @@ void Engine::Gaming() {
 
         int key = getch();
 
+        if (key == KEY_ESC) {
+            Tetris::pause();
+        }
         if (key == KEY_UP) {
             Field.figure.rotateLeft();
             Field.refreshField();

@@ -4,11 +4,14 @@
 
 #include "Tetris.h"
 
-#define KEY_RETURN 13
 
+void Tetris::signalHandler(int signal) {
+    if (signal == SIGINT) {
+        finish();
+    }
+    if (signal == SIGWINCH) {
 
-void Tetris::signalHandler(int s) {
-    finish();
+    }
 }
 
 
@@ -26,8 +29,10 @@ void Tetris::initWindow() {
 
     signal(SIGINT, Tetris::signalHandler);  //  обработка Ctrl + C
     //signal(SIGQUIT, Tetris::signalHandler);  //  обработка Ctrl + обратный /
-    //signal(SIGWINCH, Tetris::signalHandler);  //  обработка изменения размера окна
+    signal(SIGWINCH, Tetris::signalHandler);  //  обработка изменения размера окна
     //signal(SIGTSTP, Tetris::signalHandler);  //  обработка Ctrl + Z
+
+    set_escdelay(0);
 }
 
 
@@ -78,8 +83,6 @@ void Tetris::readHighscore() {
     std::ifstream file;
     file.open(".tetris_highscore.txt");
     if (!file.is_open()) {
-        move(0,0);
-        printw("oh");
         return;
     }
 
@@ -104,6 +107,22 @@ void Tetris::configTetris() {
     Zones::configField();
     setScore(0);
     readHighscore();
+    Engine::Gaming();
+}
+
+
+void Tetris::pause() {
+    move(Zones::next_Y + 4, Zones::next_X + 7);
+    printw("PAUSE");
+    refresh();
+    while (true) {
+        if (getch() == KEY_RETURN || getch() == KEY_ESC) {
+            break;
+        }
+    }
+    move(Zones::next_Y + 4, Zones::next_X + 7);
+    printw("     ");
+    refresh();
 }
 
 
@@ -131,11 +150,14 @@ void Tetris::writeHighscore() {
 
 void Tetris::gameOver() {
     Zones::paintGameOverZone();
-
+    writeHighscore();
     while (true) {
+        if (getch() == KEY_ESC) {
+            finish();
+        }
         if (getch() == KEY_RETURN) {
-            break;
+            clear();
+            return;
         }
     }
-    writeHighscore();
 }
