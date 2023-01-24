@@ -4,7 +4,7 @@
 
 #include "Tetris.h"
 
-#define KEY_ENTER 13
+#define KEY_RETURN 13
 
 
 void Tetris::signalHandler(int s) {
@@ -133,7 +133,7 @@ void Tetris::gameOver() {
     Zones::paintGameOverZone();
 
     while (true) {
-        if (getch() == KEY_ENTER) {
+        if (getch() == KEY_RETURN) {
             break;
         }
     }
