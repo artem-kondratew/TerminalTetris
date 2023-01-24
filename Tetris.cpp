@@ -76,7 +76,7 @@ int Tetris::getColumns() {
 
 void Tetris::readHighscore() {
     std::ifstream file;
-    file.open("../Highscore.txt");
+    file.open(".tetris_highscore.txt");
     if (!file.is_open()) {
         move(0,0);
         printw("oh");
@@ -116,7 +116,7 @@ void Tetris::writeHighscore() {
     }
 
     std::ofstream file;
-    file.open("../Highscore.txt");
+    file.open(".tetris_highscore.txt");
     if (file.is_open()) {
         for (int position = 0; position < score_quantity; position++) {
             file << highscore[position];
