@@ -144,7 +144,7 @@ void Engine::refreshField() {
 }
 
 
-int Engine::fillChecker() {
+int Engine::fillCheck() {
     int fill_level = 0;
     int buffer;
     for (int row = rows - 3; row >= 0; row--) {
@@ -185,6 +185,7 @@ void Engine::generateNewFigure() {
 
 
 void Engine::dropFigure() {
+    Tetris::increaseScore(1);
     figure.deltaY++;
 }
 
@@ -250,7 +251,6 @@ void Engine::Gaming() {
             Field.refreshField();
         }
         if (key == KEY_DOWN) {
-            Tetris::increaseScore(1);
             Field.dropFigure();
             Field.refreshField();
         }
@@ -273,8 +273,11 @@ void Engine::Gaming() {
             Field.figure.deltaY--;
             Field.writeBits();
             Field.refreshField();
-            create_flag = 1;
             Field.findSeries();
+            if (Field.fillCheck() == 1) {
+                return;
+            }
+            create_flag = 1;
             continue;
         }
 

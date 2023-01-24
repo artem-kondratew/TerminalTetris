@@ -4,6 +4,8 @@
 
 #include "Tetris.h"
 
+#define KEY_ENTER 13
+
 
 void Tetris::signalHandler(int s) {
     finish();
@@ -72,9 +74,68 @@ int Tetris::getColumns() {
 }
 
 
+void Tetris::readHighscore() {
+    std::ifstream file;
+    file.open("../Highscore.txt");
+    if (!file.is_open()) {
+        move(0,0);
+        printw("oh");
+        return;
+    }
+
+    int position = 0;
+
+    while(!file.eof()) {
+        file >> highscore[position];
+        if (highscore[position] != 0) {
+            move(Zones::Y + 13 + position, Zones::X + Zones::width * Zones::scale + 3);
+            printw("%d. %lu", position + 1, highscore[position]);
+        }
+        position++;
+    }
+    file.close();
+    refresh();
+}
+
+
 void Tetris::configTetris() {
     Zones::setXY(getLines(),getColumns());
     setScorePoint();
     Zones::configField();
     setScore(0);
+    readHighscore();
+}
+
+
+void Tetris::writeHighscore() {
+    for (int position = 0; position < score_quantity; position++) {
+        if (score > highscore[position]) {
+            highscore[position] = score;
+            break;
+        }
+    }
+
+    std::ofstream file;
+    file.open("../Highscore.txt");
+    if (file.is_open()) {
+        for (int position = 0; position < score_quantity; position++) {
+            file << highscore[position];
+            if (position < 9) {
+                file << std::endl;
+            }
+        }
+        file.close();
+    }
+}
+
+
+void Tetris::gameOver() {
+    Zones::paintGameOverZone();
+
+    while (true) {
+        if (getch() == KEY_ENTER) {
+            break;
+        }
+    }
+    writeHighscore();
 }

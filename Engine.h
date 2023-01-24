@@ -27,7 +27,7 @@ private:
     int compareBits();
     void moveFigure(int step);
     void refreshField();
-    int fillChecker();
+    int fillCheck();
     void generateNewFigure();
     int findx0(int is_I_figure);
     int findy0();

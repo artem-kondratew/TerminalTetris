@@ -6,6 +6,7 @@
 #define TETRIS_ZONES_H
 
 #include <ncurses.h>
+#include <vector>
 
 
 class Zones {
@@ -31,6 +32,7 @@ public:
     static void paintNextShapeZone();
     static void paintHighscore();
     static void configField();
+    static void paintGameOverZone();
 };
 
 

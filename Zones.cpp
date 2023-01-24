@@ -79,3 +79,28 @@ void Zones::configField() {
     paintNextShapeZone();
     paintHighscore();
 }
+
+
+void Zones::paintGameOverZone() {
+    int w = 11;
+    int h = 3;
+    int x0 = (GX - w) / 2;
+    int y0 = (GY - h) / 2 - 4;
+    paintHorLine(w + 2, x0, y0);
+    paintHorLine(w + 2, x0, y0 + h + 3);
+    paintVerLine(h + 2, x0, y0);
+    paintVerLine(h + 2, x0 + w + 3, y0);
+
+    for(int row = 0; row < h + 2; row++) {
+        for (int col = 0; col < 13; col++) {
+            move(Y + y0 + 1 + row, X + x0 + 1 + col);
+            printw(" ");
+        }
+    }
+
+    move(Y + y0 + 2, X + x0 + 3);
+    printw("GAME OVER");
+    move(Y + y0 + 4, X + x0 + 2);
+    printw("Press Enter");
+    refresh();
+}

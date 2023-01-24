@@ -7,7 +7,9 @@
 
 #include <csignal>
 #include <cstdlib>
+#include <fstream>
 #include <ncurses.h>
+#include <string>
 #include <vector>
 #include <sys/ioctl.h>
 #include "Zones.h"
@@ -20,6 +22,8 @@ private:
     inline static uint64_t score{};
     inline static int score_x{};
     inline static int score_y{};
+    inline static int score_quantity = 10;
+    inline static uint64_t highscore[10];
 private:
     static void signalHandler(int s);
 public:
@@ -31,6 +35,9 @@ public:
     static int getLines();
     static int getColumns();
     static void configTetris();
+    static void writeHighscore();
+    static void readHighscore();
+    static void gameOver();
 };
 
 
