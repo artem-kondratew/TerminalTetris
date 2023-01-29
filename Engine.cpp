@@ -240,7 +240,7 @@ void Engine::findSeries() {
 }
 
 
-void Engine::handleResize() {
+void Engine::resizeHandler() {
     Engine::paintNextFigure();
 }
 

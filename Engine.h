@@ -46,7 +46,7 @@ public:
     Engine();
     ~Engine() = default;
     static void Gaming();
-    static void handleResize();
+    static void resizeHandler();
 };
 
 

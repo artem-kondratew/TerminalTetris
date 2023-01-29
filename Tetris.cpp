@@ -10,7 +10,7 @@ void Tetris::signalHandler(int signal) {
         finish();
     }
     if (signal == SIGWINCH) {
-        checkTerminalSize();
+        resizeHandler();
     }
 }
 
@@ -24,53 +24,36 @@ void Tetris::initWindow() {
     noecho();  //  не отображается печать символов
     timeout(0); //  неблокируюшее чтение
     //leaveok(stdscr, TRUE);  //  сдвиг курсора - нормально
-    curs_set(0);  //  спрятать курсор
+    curs_set(0);  //  hide cursor
     keypad(stdscr, TRUE);
 
-    signal(SIGINT, Tetris::signalHandler);  //  обработка Ctrl + C
-    //signal(SIGQUIT, Tetris::signalHandler);  //  обработка Ctrl + обратный /
-    signal(SIGWINCH, Tetris::signalHandler);  //  обработка изменения размера окна
-    //signal(SIGTSTP, Tetris::signalHandler);  //  обработка Ctrl + Z
+    signal(SIGINT, Tetris::signalHandler);  // Ctrl + C
+    //signal(SIGQUIT, Tetris::signalHandler);  //  Ctrl + "\"
+    signal(SIGWINCH, Tetris::signalHandler);  //  resize screen
+    //signal(SIGTSTP, Tetris::signalHandler);  //  Ctrl + Z
 
     set_escdelay(0);
+
+    if(getLines() < Zones::GY || getColumns() < Zones::X) {
+        resizeExit();
+    }
 }
 
 
 void Tetris::finish() {
-    //curs_set(1);  //  показать курсор
-    clear();  //  очистка экрана
+    //curs_set(1);  //  show cursor
+    clear();  //  clear screen
     refresh();
     resetty();  //  восстановление настроек терминала
     endwin();
     exit(0);
 }
 
-/*
-void Tetris::checkTerminalSize() {
-    if(getLines() < Zones::GY || getColumns() < Zones::X) {
-        clear();
-        move(0, 0);
-        printw("terminal is very small");
-        refresh();
-        Tetris::gameOver();
-    }
-    else {
-        Engine::resize_flag = 1;
-        clear();
-        Zones::setXY(getLines(),getColumns());
-        setScorePoint();
-        Zones::configZones();
-        Engine::handleResize();
-        readHighscore();
-        refresh();
-    }
-}
-*/
 
-void Tetris::checkTerminalSize() {
+void Tetris::resizeExit() {
     clear();
     refresh();
-    Zones::paintGameOverZone();
+    Zones::paintTextZone("SMALL TERMINAL");
     writeHighscore();
     while (true) {
         if (getch() == KEY_ESC || getch() == KEY_RETURN) {
@@ -78,6 +61,23 @@ void Tetris::checkTerminalSize() {
         }
     }
     finish();
+}
+
+
+void Tetris::resizeHandler() {
+    if(getLines() < Zones::GY || getColumns() < Zones::X) {
+        resizeExit();
+    }
+    else {
+        Engine::resize_flag = 1;
+        clear();
+        Zones::setXY(getLines(),getColumns());
+        setScorePoint();
+        Zones::configZones();
+        Engine::resizeHandler();
+        readHighscore();
+        refresh();
+    }
 }
 
 
@@ -192,7 +192,7 @@ void Tetris::writeHighscore() {
 
 
 void Tetris::gameOver() {
-    Zones::paintGameOverZone();
+    Zones::paintTextZone("GAME  OVER");
     writeHighscore();
     while (true) {
         if (getch() == KEY_ESC) {

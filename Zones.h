@@ -6,6 +6,7 @@
 #define TETRIS_ZONES_H
 
 #include <ncurses.h>
+#include <string>
 #include <vector>
 
 
@@ -32,7 +33,7 @@ public:
     static void paintNextShapeZone();
     static void paintHighscore();
     static void configZones();
-    static void paintGameOverZone();
+    static void paintTextZone(const std::string& text);
 };
 
 

@@ -31,7 +31,8 @@ private:
 public:
     static void initWindow();
     static void finish();
-    static void checkTerminalSize();
+    static void resizeExit();
+    static void resizeHandler();
     static void setScorePoint();
     static void setScore(uint64_t new_score);
     static void increaseScore(int delta_score);

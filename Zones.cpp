@@ -81,8 +81,8 @@ void Zones::configZones() {
 }
 
 
-void Zones::paintGameOverZone() {
-    int w = 11;
+void Zones::paintTextZone(const std::string& text) {
+    int w = 16;
     int h = 3;
     int x0 = (GX - w) / 2;
     int y0 = (GY - h) / 2 - 4;
@@ -98,9 +98,9 @@ void Zones::paintGameOverZone() {
         }
     }
 
-    move(Y + y0 + 2, X + x0 + 3);
-    printw("GAME OVER");
-    move(Y + y0 + 4, X + x0 + 2);
-    printw("Press Enter");
+    move(Y + y0 + 2, X + x0 + (20 - (int)text.length()) / 2);
+    printw("%s", text.c_str());
+    move(Y + y0 + 4, X + x0 + 4);
+    printw("Press  Enter");
     refresh();
 }
