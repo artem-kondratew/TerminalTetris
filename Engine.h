@@ -21,26 +21,32 @@ class Engine: public Matrix {
 private:
     int X;
     int Y;
-    Figure figure{};
-    Figure next_figure{};
+    inline static Figure figure{};
+    inline static Figure next_figure{};
+public:
+    inline static int resize_flag = 0;
 private:
     static int generateRandomNumber();
+    void setXY();
     static Figure chooseNextFigure(int randomNumber);
     void writeBits();
     int compareBits();
     void moveFigure(int step);
     void refreshField();
     int fillCheck();
-    void generateNewFigure();
-    int findx0(int is_I_figure);
-    int findy0();
-    void dropFigure();
+    static void eraseNextFigure();
+    static void paintNextFigure();
+    static void generateNextFigure();
+    static int findx0(int is_I_figure);
+    static int findy0();
+    static void dropFigure();
     void findSeries();
     void shiftField(int series_row);
 public:
     Engine();
     ~Engine() = default;
     static void Gaming();
+    static void handleResize();
 };
 
 

@@ -10,7 +10,7 @@ void Tetris::signalHandler(int signal) {
         finish();
     }
     if (signal == SIGWINCH) {
-
+        checkTerminalSize();
     }
 }
 
@@ -43,6 +43,41 @@ void Tetris::finish() {
     resetty();  //  восстановление настроек терминала
     endwin();
     exit(0);
+}
+
+/*
+void Tetris::checkTerminalSize() {
+    if(getLines() < Zones::GY || getColumns() < Zones::X) {
+        clear();
+        move(0, 0);
+        printw("terminal is very small");
+        refresh();
+        Tetris::gameOver();
+    }
+    else {
+        Engine::resize_flag = 1;
+        clear();
+        Zones::setXY(getLines(),getColumns());
+        setScorePoint();
+        Zones::configZones();
+        Engine::handleResize();
+        readHighscore();
+        refresh();
+    }
+}
+*/
+
+void Tetris::checkTerminalSize() {
+    clear();
+    refresh();
+    Zones::paintGameOverZone();
+    writeHighscore();
+    while (true) {
+        if (getch() == KEY_ESC || getch() == KEY_RETURN) {
+            break;
+        }
+    }
+    finish();
 }
 
 
@@ -91,7 +126,7 @@ void Tetris::readHighscore() {
     while(!file.eof()) {
         file >> highscore[position];
         if (highscore[position] != 0) {
-            move(Zones::Y + 13 + position, Zones::X + Zones::width * Zones::scale + 3);
+            move(Zones::Y + 13 + position, Zones::X + Zones::field_width * Zones::hor_scale + 3);
             printw("%d. %lu", position + 1, highscore[position]);
         }
         position++;
@@ -104,7 +139,7 @@ void Tetris::readHighscore() {
 void Tetris::configTetris() {
     Zones::setXY(getLines(),getColumns());
     setScorePoint();
-    Zones::configField();
+    Zones::configZones();
     setScore(0);
     readHighscore();
     Engine::Gaming();

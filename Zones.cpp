@@ -34,10 +34,10 @@ void Zones::paintVerLine(int len, int x0, int y0) {
 
 
 void Zones::paintScoreZone() {
-    paintHorLine(width * scale, 0, 0);
-    paintHorLine(width * scale, 0, 2);
+    paintHorLine(field_width * hor_scale, 0, 0);
+    paintHorLine(field_width * hor_scale, 0, 2);
     paintVerLine(1, 0, 0);
-    paintVerLine(1, width * scale + 1, 0);
+    paintVerLine(1, field_width * hor_scale + 1, 0);
     move(1 + Y, 2 + X);
     printw("Score:");
     refresh();
@@ -45,35 +45,35 @@ void Zones::paintScoreZone() {
 
 
 void Zones::paintGameZone() {
-    paintHorLine(width * scale, 0, height + 3);
-    paintVerLine(height, 0, 2);
-    paintVerLine(height, width * scale + 1, 2);
+    paintHorLine(field_width * hor_scale, 0, field_height + 3);
+    paintVerLine(field_height, 0, 2);
+    paintVerLine(field_height, field_width * hor_scale + 1, 2);
     refresh();
 }
 
 
 void Zones::paintNextShapeZone() {
-    paintHorLine(9 * scale - 1, width * scale + 1, 0);
-    paintHorLine(9 * scale - 1, width * scale + 1, 10);
-    paintVerLine(9, width * scale + 19, 0);
-    next_X = X + width * scale + 1;
+    paintHorLine(9 * hor_scale - 1, field_width * hor_scale + 1, 0);
+    paintHorLine(9 * hor_scale - 1, field_width * hor_scale + 1, 10);
+    paintVerLine(9, field_width * hor_scale + 19, 0);
+    next_X = X + field_width * hor_scale + 1;
     next_Y = Y + 5;
-    move(Y + 1, X + width * scale + 5);
+    move(Y + 1, X + field_width * hor_scale + 5);
     printw("Next shape");
     refresh();
 }
 
 
 void Zones::paintHighscore() {
-    paintHorLine(9 * scale - 1, width * scale + 1, height + 3);
-    paintVerLine(12, width * scale + 19, 10);
-    move(Y + 11, X + width * scale + 5);
+    paintHorLine(9 * hor_scale - 1, field_width * hor_scale + 1, field_height + 3);
+    paintVerLine(12, field_width * hor_scale + 19, 10);
+    move(Y + 11, X + field_width * hor_scale + 5);
     printw("Highscore:");
     refresh();
 }
 
 
-void Zones::configField() {
+void Zones::configZones() {
     paintScoreZone();
     paintGameZone();
     paintNextShapeZone();

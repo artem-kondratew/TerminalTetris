@@ -26,9 +26,14 @@ int Engine::generateRandomNumber() {
 }
 
 
-Engine::Engine(): Matrix(22, 10) {
+void Engine::setXY() {
     X = Zones::X + 1;
     Y = Zones::Y + 3;
+}
+
+
+Engine::Engine(): Matrix(22, 10) {
+    setXY();
     for (int row = 20; row < rows; row++)
         for (int col = 0; col < cols; col++) {
             data[row][col] = 1;
@@ -174,13 +179,23 @@ int Engine::findy0() {
 }
 
 
-void Engine::generateNewFigure() {
+void Engine::eraseNextFigure() {
     next_figure.dangerErase(findx0(next_figure.type_number), findy0());
+}
+
+
+void Engine::paintNextFigure() {
+    next_figure.paint(findx0(next_figure.type_number), findy0(), figure.rows);
+    refresh();
+}
+
+
+void Engine::generateNextFigure() {
+    eraseNextFigure();
     figure = next_figure;
     int random_number = generateRandomNumber();
     next_figure = chooseNextFigure(random_number);
-    next_figure.paint(findx0(next_figure.type_number), findy0(), figure.rows);
-    refresh();
+    paintNextFigure();
 }
 
 
@@ -225,6 +240,11 @@ void Engine::findSeries() {
 }
 
 
+void Engine::handleResize() {
+    Engine::paintNextFigure();
+}
+
+
 void Engine::Gaming() {
     Engine Field;
     int create_flag = 1;
@@ -233,13 +253,18 @@ void Engine::Gaming() {
     double k = 1.0;
     int paint_number;
 
-    Field.next_figure = chooseNextFigure(generateRandomNumber());
+    next_figure = chooseNextFigure(generateRandomNumber());
 
     while (true) {
+        if (resize_flag == 1) {
+            Field.setXY();
+            resize_flag = 0;
+        }
+
         if (create_flag == 1) {
-            Field.generateNewFigure();
-            Field.figure.deltaX = (Zones::width - Field.figure.cols) / 2;
-            Field.figure.deltaY = -Field.figure.getRows() + Field.figure.cutEmptyBottom();
+            Field.generateNextFigure();
+            figure.deltaX = (Zones::field_width - figure.cols) / 2;
+            figure.deltaY = -figure.getRows() + figure.cutEmptyBottom();
             k -= 0.01;
             create_flag = 0;
         }
@@ -250,7 +275,7 @@ void Engine::Gaming() {
             Tetris::pause();
         }
         if (key == KEY_UP) {
-            Field.figure.rotateLeft();
+            figure.rotateLeft();
             Field.refreshField();
         }
         if (key == KEY_DOWN) {
@@ -266,14 +291,14 @@ void Engine::Gaming() {
             Field.refreshField();
         }
 
-        Field.figure.X0 = Field.X + Field.figure.deltaX * 2;
-        Field.figure.Y0 = Field.Y + Field.figure.deltaY;
+        figure.X0 = Field.X + figure.deltaX * 2;
+        figure.Y0 = Field.Y + figure.deltaY;
 
         collision_flag = Field.compareBits();
 
         if (collision_flag == 1) {
-            Field.figure.Y0--;
-            Field.figure.deltaY--;
+            figure.Y0--;
+            figure.deltaY--;
             Field.writeBits();
             Field.refreshField();
             Field.findSeries();
@@ -284,13 +309,13 @@ void Engine::Gaming() {
             continue;
         }
 
-        paint_number = Field.figure.rows + Field.figure.deltaY;
+        paint_number = figure.rows + figure.deltaY;
         Field.refreshField();
-        Field.figure.paint(Field.figure.X0, Field.figure.Y0, paint_number);
+        figure.paint(figure.X0, figure.Y0, paint_number);
 
         auto end_timer = std::chrono::system_clock::now();
         if (std::chrono::duration_cast<std::chrono::milliseconds>(end_timer - start_timer).count() > int(1000 * k)) {
-            Field.figure.deltaY++;
+            figure.deltaY++;
             start_timer = std::chrono::system_clock::now();
         }
     }
