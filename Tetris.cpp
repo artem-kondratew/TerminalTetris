@@ -127,11 +127,19 @@ void Tetris::pause() {
 
 
 void Tetris::writeHighscore() {
+    int flag =  -1;
     for (int position = 0; position < score_quantity; position++) {
         if (score > highscore[position]) {
-            highscore[position] = score;
+            flag = position;
             break;
         }
+    }
+
+    if (flag != -1) {
+        for (int position = score_quantity - 2; position >= flag; position--) {
+            highscore[position+1] = highscore[position];
+        }
+        highscore[flag] = score;
     }
 
     std::ofstream file;
