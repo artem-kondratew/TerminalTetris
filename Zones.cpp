@@ -92,7 +92,7 @@ void Zones::paintTextZone(const std::string& text) {
     paintVerLine(h + 2, x0 + w + 3, y0);
 
     for(int row = 0; row < h + 2; row++) {
-        for (int col = 0; col < 13; col++) {
+        for (int col = 0; col < 18; col++) {
             move(Y + y0 + 1 + row, X + x0 + 1 + col);
             printw(" ");
         }
